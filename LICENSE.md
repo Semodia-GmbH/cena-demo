@@ -1,6 +1,6 @@
 Unless otherwise noted, the following copyright applies
 
-(c) Copyright 2020 Semodia GmbH. All Rights Reserved.
+(c) Copyright 2024 Semodia GmbH. All Rights Reserved.
 
 ---
 This is an overview of included projects and dependencies to 3rd party code.  Please see [README_OSS.md](README_OSS.md) 
