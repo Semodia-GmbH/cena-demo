@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CENA DEMO: Run the example &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Example: Mtp Controlengine" href="example_mtp_controlengine.html" />
+    <link rel="prev" title="Welcome to the CENA DEMO" href="cena_example_intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../../../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../00_general/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">MTP &amp; MTP ControlEngines</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../mtp_model_elements.html">MTP Model Elements</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">CENA DEMO</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cena_example_intro.html">Welcome to the CENA DEMO</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">CENA DEMO: Run the example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="example_mtp_controlengine.html">Example: Mtp Controlengine</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../writing_ce_tests.html">Testing ControlEngines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../writing_ce_tests.html#testing-services">Testing Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../logging/index.html">CENAs Logging Subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../statemachines/index.html">CENAs State Machine API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../example_tasks.html">Example: Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../example_util_computedValues.html">Example: Util ComputedValues</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Tutorials</a></li>
+          <li class="breadcrumb-item"><a href="../index.html">MTP &amp; MTP ControlEngines</a></li>
+          <li class="breadcrumb-item"><a href="index.html">CENA DEMO</a></li>
+      <li class="breadcrumb-item active">CENA DEMO: Run the example</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/20_tutorials/mtp_controlengine/mtp_example_demo/run_simulation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cena-demo-run-the-example">
+<span id="run-simulation"></span><h1>CENA DEMO: Run the example<a class="headerlink" href="#cena-demo-run-the-example" title="Link to this heading"></a></h1>
+<p>In this section, you’re encouraged to run the simulation on your own machine and follow along.
+However, you can also simply stay on this webpage, as all the actions and reactions of the simulation are fully presented here.</p>
+<p>If you wish to run the simulation then check out the setup section or <a class="reference internal" href="#fill-and-drain"><span class="std std-ref">skip</span></a> it otherwise.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading"></a></h2>
+<p>First of all get the source code from our <a class="reference external" href="https://github.com/Semodia-GmbH/github-test">GitHub Repository</a>.</p>
+<p>In order to build the application using the CENA libraries, you need</p>
+<ul class="simple">
+<li><p>An x86_64 CPU, as we ship the binary only for that architecture at the moment</p></li>
+<li><p>CMake 3.16 or higher</p></li>
+<li><p>A C Compiler supporting C99 or newer</p></li>
+<li><p>A C++ Compiler supporting C++17 or newer</p></li>
+</ul>
+<section id="gnu-linux">
+<h3>GNU/Linux<a class="headerlink" href="#gnu-linux" title="Link to this heading"></a></h3>
+<p>On Linux hosts, everything should work out of the box, if you have installed a recent version of GCC, G++ and CMake via your system’s package manager.</p>
+</section>
+<section id="microsoft-windows">
+<h3>Microsoft Windows<a class="headerlink" href="#microsoft-windows" title="Link to this heading"></a></h3>
+<p>For Windows builds, only the <a class="reference external" href="https://www.cygwin.com/">Cygwin</a> based toolchain is currently tested and evaluated.</p>
+<p>Please make sure you have set up a working Cygwin environment before continuing.</p>
+<p>You will require at least the following packages installed via the cygwin installer:</p>
+<ul class="simple">
+<li><p>gdb, gcc, g++</p></li>
+<li><p>cmake</p></li>
+<li><p>make</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Execute all commands from within the Cygwin terminal.</p>
+</div>
+<section id="quickstart">
+<h4>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h4>
+<p>Inside the repository you’ll find a <cite>src</cite> folder that contains the example implementation that makes use of the CENA libraries.
+Along with the actual implementation (the .cpp files) there is a <a class="reference external" href="https://cmake.org/">CMake</a> project file - <cite>CMakeLists.txt</cite></p>
+<p>Perform the following commands to build the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">example_usage</span><span class="o">/</span>
+<span class="n">mkdir</span> <span class="n">build</span> <span class="o">&amp;&amp;</span> <span class="n">cd</span> <span class="n">build</span>
+<span class="n">cmake</span> <span class="o">..</span>
+<span class="n">make</span>
+</pre></div>
+</div>
+<p>You now have built your first application with the CENA as a library!
+The generated program is placed in the build folder: <cite>example_mtp_controlengine</cite>.</p>
+<p>Finally run the app in your terminal!</p>
+</section>
+</section>
+</section>
+<section id="fill-and-drain-the-tanks">
+<span id="fill-and-drain"></span><h2>Fill and drain the tanks<a class="headerlink" href="#fill-and-drain-the-tanks" title="Link to this heading"></a></h2>
+<p>If everything is up and running you should have received the following log in your terminal.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INFO</span>  <span class="n">Running</span> <span class="n">the</span> <span class="n">control</span> <span class="n">engine</span>
+</pre></div>
+</div>
+<p>That means the CENA is ready to process instructions to control the valves of our tank!</p>
+<p>To receive those instructions it opens an OPC UA server with the predefined properties of the PEA saved in the MTP file.</p>
+<p>Now we need to connect to this server using an OPC UA client, like <a class="reference external" href="https://www.unified-automation.com/de/downloads/opc-ua-clients.html">UA Expert</a> and connect to <cite>opc.tcp://127.0.0.1:4840</cite>. You should see our “ExamplePEA” in the address space.</p>
+<p>There the CENA hosts all the relevant properties of the PEA. By manipulating those values through our OPC UA client, the CENA based application will react accordingly with the implemented the business logic regarding the defined MTP standard.</p>
+<p>In our case that would be to open or close the valves when the procedure is started considering the fill mode.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you are using UA Expert, there is an UA template file (<cite>examplePEA.uap</cite>) in the same directory as the cpp source code. This automatically connects to the specified ip address and subscribes the relevant attributes to control our tank module.</p>
+</div>
+<p>Next, subscribe to these values:</p>
+<p class="plantuml">
+<img src="../../../_images/plantuml-e1d274dac6c1f8c6bf329cfff6f4887f74da94ee.png" alt="&#64;startsalt
+{{T
+ + ExamplePEA
+ ++ Communications
+ +++ Instances
+ ++++ FillLevel
+ +++++ V    **(fillLevel-&gt;V)**
+ ++ Control
+ +++ Services
+ ++++ Service_0
+ +++++ ReferencedServiceControl
+ ++++++ CommandOp **(liquidService-&gt;CommandOp)**
+ ++++++ StateCur   **(liquidService-&gt;StateCur)**
+ ++++++ PrecedureOp   **(liquidService-&gt;PrecedureOp)**
+ ++++++ PrecedureReq   **(liquidService-&gt;PrecedureReq)**
+ ++++++ PrecedureCur   **(liquidService-&gt;PrecedureCur)**
+ ++++++ ServiceOperationMode
+ +++++++ StateOpAct **(liquidService-&gt;StateOpAct)**
+ +++++++ StateOpOp  **(liquidService-&gt;StateOpOp)**
+ +++++ mtp::Procedures
+ ++++++ mtp::Procedure_0
+ +++++++ ProcedureParameters
+ ++++++++ ProcedureParameter_0
+ +++++++++ ReferencedDataAssembly
+ ++++++++++ Apply
+ +++++++++++ ApplyEn  **(fillTank-&gt;ApplyEn)**
+ +++++++++++ ApplyOp  **(fillTank-&gt;ApplyOp)**
+ ++++++++++ VOp  **(fillTank-&gt;VOp)**
+ ++++++++++ VOut **(fillTank-&gt;VOut)**
+ ++++++++++ VReq **(fillTank-&gt;VReq)**
+ +++++++ ProcessValueOuts
+ ++++++++ ProcessValueOut_0
+ +++++++++ ReferencedDataAssembly
+ ++++++++++ V    **(inletValveState-&gt;V)**
+ ++++++++ ProcessValueOut_1
+ +++++++++ ReferencedDataAssembly
+ ++++++++++ V    **(outletValveState-&gt;V)**
+}}
+&#64;endsalt"/>
+</p>
+<p>The tank fill level should be 0%.</p>
+<p>Next we want to fill the tank. The required steps may seem a bit laborious, but all of them are necessary to fulfill the defined MTP standard.</p>
+<p>In a real process plant, the POL would abstract all of these sub-steps, leaving only a single button to fill the tank.
+However, we’ll manually perform each step using our OPC UA client and provide a brief explanation for each one.</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Set <cite>liquidService-&gt;StateOpOp</cite> to true</dt><dd><ul class="simple">
+<li><p><cite>liquidService-&gt;StateOpAct</cite> should become true</p></li>
+<li><p><cite>liquidService-&gt;StateCur</cite> should become 16 (IDLE)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>By default the PEA is controlled internally, this command tells the PEA that the liquidService shall be controlled by us (the operator).</p>
+<ol class="arabic simple" start="2">
+<li><dl class="simple">
+<dt>Set <cite>liquidService-&gt;ProcedureOp</cite> to “1”</dt><dd><ul class="simple">
+<li><p><cite>fillTank-&gt;ProcedureReq</cite> will become 1</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>This requests the procedure that should be executed. In our case we only have one that fills and drains the tank.</p>
+<ol class="arabic simple" start="3">
+<li><dl class="simple">
+<dt>Set <cite>fillTank-&gt;VOp</cite> to true</dt><dd><ul class="simple">
+<li><p><cite>fillTank-&gt;VReq</cite> will be <cite>true</cite></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>This is a parameter of our fill tank procedure. True indicates that we want to fill the tank instead of draining.</p>
+<ol class="arabic simple" start="4">
+<li><dl class="simple">
+<dt>Set <cite>fillTank-&gt;ApplyOp</cite> to <cite>true</cite></dt><dd><ul class="simple">
+<li><p><cite>fillTank-&gt;VOut</cite> will be become <cite>true</cite> as requested; the info-callback should be printed on the command line</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>This now applies the procedure parameter and it is ready to use for our procedure.</p>
+<ol class="arabic simple" start="5">
+<li><dl class="simple">
+<dt>Set <cite>liquidService-&gt;CommandOp</cite> to “4” (START)</dt><dd><ul class="simple">
+<li><p><cite>fillTank-&gt;ApplyEn</cite> should become <cite>false</cite></p></li>
+<li><p><cite>fillTank-&gt;VOut</cite> should become <cite>true</cite></p></li>
+<li><p><cite>liquidService-&gt;StateCur</cite> should become 64 (EXECUTING)</p></li>
+<li><p>The tank level should rise to 100% in ~20 seconds</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>By doing this, we send the START command to the PEA, which then executes the requested procedure with the specified parameters—in our case, filling the tank.</p>
+<ol class="arabic simple" start="6">
+<li><dl class="simple">
+<dt>The tank level will start to rise</dt><dd><ul class="simple">
+<li><p>when 100% are reached, <cite>liquidService-&gt;StateCur</cite> should become 131072 (COMPLETED)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set <cite>liquidService-&gt;CommandOp</cite> to “2” (RESET)</dt><dd><ul class="simple">
+<li><p><cite>liquidService-&gt;StateCur</cite> should become 16 (IDLE) (its going through RESETTING, but its probably so fast you won’t see that)</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>After a procedure is completed it needs to be reset to go back in the IDLE state.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Now you can try to drain the tank on your own or follow along the remaining steps together.</p>
+</div>
+</div></blockquote>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Set <cite>fillTank-&gt;VOp</cite> to false</dt><dd><ul class="simple">
+<li><p><cite>fillTank-&gt;VReq</cite> will be <cite>false</cite></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set <cite>fillTank-&gt;ApplyOp</cite> to <cite>true</cite></dt><dd><ul class="simple">
+<li><p><cite>fillTank-&gt;VOut</cite> will be become <cite>false</cite> as requested</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Set <cite>liquidService-&gt;CommandOp</cite> to “4” (START)</dt><dd><ul class="simple">
+<li><p>The tank level should decrease</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Hit <cite>Ctrl+C</cite> to stop the example once you get bored.</p>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h3>
+<p>In this quick example we have demonstrated how the CENA can control a PEA module and expose it’s functionality to the outside, so the POL (or in our case the OPC UA client) can start its services.</p>
+<p>If you are still interested to see what is actually happening under the hood, what the code of this example application looks like and how it interacts with the CENA framework, then check out our detailed documentation.</p>
+<p>Be aware that this documentation is aimed at developers that have a decent coding background. Some of the already covered aspects will be presented there again in more detail.</p>
+<p><a class="reference internal" href="example_mtp_controlengine.html#detailed-docu"><span class="std std-ref">Go to detailed documentation</span></a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cena_example_intro.html" class="btn btn-neutral float-left" title="Welcome to the CENA DEMO" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example_mtp_controlengine.html" class="btn btn-neutral float-right" title="Example: Mtp Controlengine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

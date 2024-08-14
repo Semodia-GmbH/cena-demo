@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4. Feature List &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Frequently Asked Questions" href="frequent_questions.html" />
+    <link rel="prev" title="3. NAMUR Open Architecture" href="about_noa.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">About</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="before_you_start.html">1. Before you start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about_mtp.html">2. Module Type Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about_noa.html">3. NAMUR Open Architecture</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4. Feature List</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-cores">4.1. Model Cores</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-type-package">4.1.1. Module Type Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#process-automation-device-integration-model">4.1.2. Process Automation Device Integration Model</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#i-o-drivers">4.2. I/O Drivers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operating-system-abstraction-utilities">4.3. Operating System Abstraction &amp; Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="frequent_questions.html">5. Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc.generated/CHANGELOG.html">6. Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">About</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4. </span>Feature List</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/00_general/feature_list.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="feature-list">
+<span id="id1"></span><h1><span class="section-number">4. </span>Feature List<a class="headerlink" href="#feature-list" title="Link to this heading"></a></h1>
+<p>This feature list provides a coarse overview of what components are implemented in various parts of <em>CENA</em>.
+If you want to make sure that a specific feature you are looking for exists,
+you might want to take a look at <a class="reference external" href="CHANGELOG">the project changelog</a>.</p>
+<section id="model-cores">
+<h2><span class="section-number">4.1. </span>Model Cores<a class="headerlink" href="#model-cores" title="Link to this heading"></a></h2>
+<p id="index-0">Each model core realizes the given information model as a set of C++ classes. They include the
+<em>model reflection</em> of the model classes</p>
+<section id="module-type-package">
+<h3><span class="section-number">4.1.1. </span>Module Type Package<a class="headerlink" href="#module-type-package" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>ModuleTypePackage base class</p></li>
+<li><p>ServiceSet &amp; <code class="docutils literal notranslate"><span class="pre">Service</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ConfigurationParameter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Procedure</span></code> /w custom userland callbacks and <code class="docutils literal notranslate"><span class="pre">ProcedureHealthView</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ProcedureParameter</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ProcessValueIn</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ReportValue</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ProcessValueOut</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>DataAssemblies</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">(Ana|Bin)Vlv</span></code> /w user callbacks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(Ana|Bin)Man</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(Ana|Bin)ManInt</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(Ana|Bin|String)ServParam</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(Ana|Bin|DInt|String)View</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(Ana|Bin)ProcessValueIn</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PIDCtrl</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="process-automation-device-integration-model">
+<h3><span class="section-number">4.1.2. </span>Process Automation Device Integration Model<a class="headerlink" href="#process-automation-device-integration-model" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PADIMType</span></code> base class</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SignalTypes</span></code> and <code class="docutils literal notranslate"><span class="pre">SignalVariableTypes</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">AnalogItemType</span></code>, <code class="docutils literal notranslate"><span class="pre">AnalogUnitRangeType</span></code> and <code class="docutils literal notranslate"><span class="pre">AnalogSignalVariableType</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DiscreteItemType</span></code>, <code class="docutils literal notranslate"><span class="pre">DiscreteSignalVariableType</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MultiStateValueDiscreteType</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiStateDictionaryEntryDiscreteBaseType</span></code>, <code class="docutils literal notranslate"><span class="pre">MultiStateDiscreteSignalVariableType</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TwoStateDiscreteType</span></code>, <code class="docutils literal notranslate"><span class="pre">TwoStateDiscreteSignalVariableType</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ControlVariableType</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="i-o-drivers">
+<span id="feature-list-dataio"></span><h2><span class="section-number">4.2. </span>I/O Drivers<a class="headerlink" href="#i-o-drivers" title="Link to this heading"></a></h2>
+<p>Note that most of these drivers require special or additional hardware.</p>
+<ul class="simple">
+<li><p>Pimorino AutomationHat and AutomationHat Mini</p></li>
+<li><p>Foundation HART</p></li>
+<li><p>Kunbus PiControl</p></li>
+<li><p>Siemens S7</p></li>
+<li><p>Bronkhorst ProPar/DataFlow MFC</p></li>
+<li><p>Huber PilotOne</p></li>
+<li><p>Fink Chem+Tech Ritmo R15</p></li>
+</ul>
+</section>
+<section id="operating-system-abstraction-utilities">
+<h2><span class="section-number">4.3. </span>Operating System Abstraction &amp; Utilities<a class="headerlink" href="#operating-system-abstraction-utilities" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>UML state machines (hierarchical states, historizing, parallel execution)</p></li>
+<li><p>Task abstraction (loop task, thread decorators, mutex)</p></li>
+<li><p>Timer abstraction</p></li>
+<li><p>Logging (file &amp; shell sinks, log formatters, severity &amp; filtering)</p></li>
+<li><p>Messaging API (internal, thread-safe)</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about_noa.html" class="btn btn-neutral float-left" title="3. NAMUR Open Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="frequent_questions.html" class="btn btn-neutral float-right" title="5. Frequently Asked Questions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

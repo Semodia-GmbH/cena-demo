@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example: Statemachines &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Example: Tasks" href="../example_tasks.html" />
+    <link rel="prev" title="Statemachine Framework" href="sdk.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00_general/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mtp_controlengine/index.html">MTP &amp; MTP ControlEngines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../logging/index.html">CENAs Logging Subsystem</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">CENAs State Machine API</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="sdk.html">Statemachine Framework</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Example: Statemachines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#util-state-machine-framework">Util State Machine Framework</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-usage">Example Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../example_tasks.html">Example: Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_util_computedValues.html">Example: Util ComputedValues</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
+          <li class="breadcrumb-item"><a href="index.html">CENAs State Machine API</a></li>
+      <li class="breadcrumb-item active">Example: Statemachines</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/20_tutorials/statemachines/example_statemachines.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-statemachines">
+<span id="id1"></span><h1>Example: Statemachines<a class="headerlink" href="#example-statemachines" title="Link to this heading"></a></h1>
+<p>Create a simple statemachine with the provided framework of the util library.</p>
+<section id="util-state-machine-framework">
+<h2>Util State Machine Framework<a class="headerlink" href="#util-state-machine-framework" title="Link to this heading"></a></h2>
+<p>A state machine consists of a set of states and the transitions between states, of which one state must be designated
+as an initial state. Here’s a minimal example for the notation used in this example:</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-6a3f23b675c245e8cc43ee689ed2158fd95caafc.png" alt="&#64;startuml
+state container_state {
+    [*] -&gt; a_state
+    state a_state : entry()\nstay()\nexit
+    a_state -&gt; [*] : bool guard()
+}
+&#64;enduml"/>
+</p>
+<p>In terms of execution, the state machine behaves similar to a petry network: Initial states are activated and
+transactions pass the execution token on to the next state. Unlike a petry network, a state is either active or not,
+so there are not multiple tokens per state. A state will execute its <cite>stay()</cite> action as long as it has a token.
+When it becomes active, <cite>enter()</cite> is called. When the state is looses its execution token, <cite>exit()</cite> is called.</p>
+<p>Guards on transitions return true or false; the first “true” transition wins.</p>
+<p>So when does all this happen?
+The SDK’s inherently models discrete nested states. A parent state (the container) will take care of handling the
+entire state machine logic during its <cite>stay()</cite> action. So each call to the container-states <cite>stay()</cite> is one
+discrete update step to our state machine.</p>
+<section id="the-istate-interface">
+<h3>The IState Interface<a class="headerlink" href="#the-istate-interface" title="Link to this heading"></a></h3>
+<p>States of the statemachine are defined by the IState interface:</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine6IStateE">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine6IStateE"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine6IStateE"></span><span id="semodia::controlengine::native::util::statemachine::IState"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IState</span></span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine6IStateE" title="Link to this definition"></a><br /></dt>
+<dd><p>The interface of an arbitrary state. </p>
+<p>Subclassed by semodia::controlengine::native::util::statemachine::HierarchicState&lt; mtp::ServiceStateId &gt;, semodia::controlengine::native::util::statemachine::HierarchicState&lt; idType &gt;</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7semodia13controlengine6native4util12statemachine6IState8isActiveEv">
+<span id="_CPPv3NK7semodia13controlengine6native4util12statemachine6IState8isActiveEv"></span><span id="_CPPv2NK7semodia13controlengine6native4util12statemachine6IState8isActiveEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::isActiveC"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1af609317a7329769ac2968bd5d51375a5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isActive</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK7semodia13controlengine6native4util12statemachine6IState8isActiveEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A state is active either if it <code class="docutils literal notranslate"><a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1affdcb786d179817a1361dc8441ee7f83"><span class="std std-ref"><span class="pre">isInitial()</span></span></a></code> or if <code class="docutils literal notranslate"><a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a9990a05064d62b2cb36ae6b2093e21a1"><span class="std std-ref"><span class="pre">enter()</span></span></a></code> was called, but <code class="docutils literal notranslate"><a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a6dbc4f26160cf96f8c3b46b5aa6b3757"><span class="std std-ref"><span class="pre">exit()</span></span></a></code> was not. A final state is never active. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if active. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7semodia13controlengine6native4util12statemachine6IState9isInitialEv">
+<span id="_CPPv3NK7semodia13controlengine6native4util12statemachine6IState9isInitialEv"></span><span id="_CPPv2NK7semodia13controlengine6native4util12statemachine6IState9isInitialEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::isInitialC"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1affdcb786d179817a1361dc8441ee7f83"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isInitial</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK7semodia13controlengine6native4util12statemachine6IState9isInitialEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A state is initial if it is active when the state machine starts (without invoking <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a9990a05064d62b2cb36ae6b2093e21a1"><span class="std std-ref">enter()</span></a>). An initial state can only call <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a0e83d85a575e90b7b8022996a6f47558"><span class="std std-ref">stay()</span></a> and <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a6dbc4f26160cf96f8c3b46b5aa6b3757"><span class="std std-ref">exit()</span></a>;. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if initial. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7semodia13controlengine6native4util12statemachine6IState7isFinalEv">
+<span id="_CPPv3NK7semodia13controlengine6native4util12statemachine6IState7isFinalEv"></span><span id="_CPPv2NK7semodia13controlengine6native4util12statemachine6IState7isFinalEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::isFinalC"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a65649b94394f91ed0eec038f878ddadc"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isFinal</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK7semodia13controlengine6native4util12statemachine6IState7isFinalEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A final state cannot be exited (transitions are always false) and does not execute <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a0e83d85a575e90b7b8022996a6f47558"><span class="std std-ref">stay()</span></a>;. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if final. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7semodia13controlengine6native4util12statemachine6IState13isHistorizingEv">
+<span id="_CPPv3NK7semodia13controlengine6native4util12statemachine6IState13isHistorizingEv"></span><span id="_CPPv2NK7semodia13controlengine6native4util12statemachine6IState13isHistorizingEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::isHistorizingC"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a1bf0895c77cf321d730f8f96590970de"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isHistorizing</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK7semodia13controlengine6native4util12statemachine6IState13isHistorizingEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A historizing state will remember the last substate that was active when <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a6dbc4f26160cf96f8c3b46b5aa6b3757"><span class="std std-ref">exit()</span></a> or <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1ab2a05c1ecd39f89a9de3b4a028633bbe"><span class="std std-ref">abort()</span></a> was called. If re-entered, the last active state (or states) will be re-activated. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7semodia13controlengine6native4util12statemachine6IState8isPausedEv">
+<span id="_CPPv3NK7semodia13controlengine6native4util12statemachine6IState8isPausedEv"></span><span id="_CPPv2NK7semodia13controlengine6native4util12statemachine6IState8isPausedEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::isPausedC"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a97d2566865c6ee15720a337d9b9f51de"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">isPaused</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK7semodia13controlengine6native4util12statemachine6IState8isPausedEv" title="Link to this definition"></a><br /></dt>
+<dd><p>A historizing state will use its initial substates on first activation; if exited, it is considered paused. The next entry will not activate initial states but case already active states to re-enter(). Aborting will not pause a historic state, next entry will use initial substates again. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine6IState5enterEv">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine6IState5enterEv"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine6IState5enterEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::enter"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a9990a05064d62b2cb36ae6b2093e21a1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">enter</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine6IState5enterEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Activates initial substates (or historic states). If non-initial, this runs user-code if attached. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine6IState4stayEv">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine6IState4stayEv"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine6IState4stayEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::stay"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a0e83d85a575e90b7b8022996a6f47558"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stay</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine6IState4stayEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks transitions in all active substates; exits() them if transitions are found and invokes <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a9990a05064d62b2cb36ae6b2093e21a1"><span class="std std-ref">enter()</span></a> on transition targets if true. Calls <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a0e83d85a575e90b7b8022996a6f47558"><span class="std std-ref">stay()</span></a> in active substates otherwise. Invokes user code if attached. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine6IState4exitEv">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine6IState4exitEv"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine6IState4exitEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::exit"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1a6dbc4f26160cf96f8c3b46b5aa6b3757"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exit</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine6IState4exitEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Invokes <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1ab2a05c1ecd39f89a9de3b4a028633bbe"><span class="std std-ref">abort()</span></a> in all active substates that are non-final. Saves historic state if configured. Calls user code if attached. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine6IState5abortEv">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine6IState5abortEv"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine6IState5abortEv"></span><span id="semodia::controlengine::native::util::statemachine::IState::abort"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1ab2a05c1ecd39f89a9de3b4a028633bbe"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">abort</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine6IState5abortEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Invokes <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1IState_1ab2a05c1ecd39f89a9de3b4a028633bbe"><span class="std std-ref">abort()</span></a> in all active substates that are non-final. Saves historic state if configured. Calls user code if attached. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>A basic implementation of this interface is available by the <cite>HierarchicState</cite> class, which will be used in the
+following. In this example, we will cover the usage of this class.</p>
+<section id="historizing-substates">
+<h4>Historizing substates<a class="headerlink" href="#historizing-substates" title="Link to this heading"></a></h4>
+<p>If your business logic assumes hierarchical states in your state machine, which can be put on hold and resumed later
+on from the same sub state they were in when put on hold,
+take a look at the <cite>historizing</cite> parameter of the constructor and <cite>addSubstate()</cite> of the <cite>HierarchicState</cite> class.</p>
+</section>
+</section>
+<section id="the-itransition-interface">
+<h3>The ITransition Interface<a class="headerlink" href="#the-itransition-interface" title="Link to this heading"></a></h3>
+<p>Transitions between states are defined by the ITransition interface:</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine11ITransitionE">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine11ITransitionE"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine11ITransitionE"></span><span id="semodia::controlengine::native::util::statemachine::ITransition"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1ITransition"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ITransition</span></span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine11ITransitionE" title="Link to this definition"></a><br /></dt>
+<dd><p>Subclassed by semodia::controlengine::native::util::statemachine::Transition</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine11ITransition4testEv">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine11ITransition4testEv"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine11ITransition4testEv"></span><span id="semodia::controlengine::native::util::statemachine::ITransition::test"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1ITransition_1a8418b5595ba281b646f1820b49c82405"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">test</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine11ITransition4testEv" title="Link to this definition"></a><br /></dt>
+<dd><p>test the transition guard </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>return true if the followup-state can be activated. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4util12statemachine11ITransition14getTargetStateEv">
+<span id="_CPPv3N7semodia13controlengine6native4util12statemachine11ITransition14getTargetStateEv"></span><span id="_CPPv2N7semodia13controlengine6native4util12statemachine11ITransition14getTargetStateEv"></span><span id="semodia::controlengine::native::util::statemachine::ITransition::getTargetState"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1util_1_1statemachine_1_1ITransition_1af17d02bb20c53a3afa9b5f7a08a5d8b8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7semodia13controlengine6native4util12statemachine6IStateE" title="semodia::controlengine::native::util::statemachine::IState"><span class="n"><span class="pre">IState</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">getTargetState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4util12statemachine11ITransition14getTargetStateEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>the state configured as target of this transition </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>The <cite>Transition</cite> class offers a basic implementation of this interface.
+Each state can have multiple outgoing transitions. However, only one outgoing transition can be executed per tick and state.
+Each transition has a guard function associated, which is used to evaluate, if the transition can be executed.
+When checking for the successor to an active state, the registered outgoing transitions are checked via their guard functions.
+The first transitions which is executable, will be executed. If none of the registered transitions is executable, the current active state will remain active.</p>
+</section>
+</section>
+<section id="example-usage">
+<h2>Example Usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h2>
+<p>To demonstrate the usage of the state machine framework, we now take a look at some example code.
+In the example, we model an example (hierarchical) state machine according to the following diagram:</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-296301b4cc5e6f5d1f2bf0f804aa4055a1c120b3.png" alt="&#64;startuml
+[*] --&gt; statemachine
+statemachine --&gt; [*]
+state statemachine {
+    [*] --&gt; level_1_A
+    [*] --&gt; level_1_alpha
+    level_1_A --&gt; level_1_B
+    level_1_B --&gt; level_1_C1
+    level_1_B --&gt; level_1_C2
+    level_1_C1 --&gt; level_1_D
+    level_1_C2 --&gt; level_1_hierarchic
+    level_1_level_1_hierarchic --&gt; level_1_final
+    level_1_alpha --&gt; level_1_beta
+    level_1_beta --&gt; level_1_gamma
+    level_1_gamma --&gt; level_1_level_1_hierarchic
+    level_1_hierarchic --&gt; level_1_final
+    level_1_final --&gt; [*]
+    state level_1_hierarchic {
+        [*] -&gt; level_2_A
+        level_2_A --&gt; level_2_B
+        level_2_B --&gt; level_2_C
+        level_2_C --&gt; [*]
+    }
+}
+&#64;enduml"/>
+</p>
+<p>Let’s begin.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;list&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;statemachine/HierarchicState.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;statemachine/Transition.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">cena</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">semodia</span><span class="o">::</span><span class="nn">controlengine</span><span class="o">::</span><span class="nn">native</span><span class="p">;</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">statemachine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">cena</span><span class="o">::</span><span class="nn">util</span><span class="o">::</span><span class="nn">statemachine</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">StringState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">statemachine</span><span class="o">::</span><span class="n">HierarchicState</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="n">StringStateList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>We add a guard function for transitions - this one always allows the transition to the next state, i.e. always
+returns true. For your own application, guards on transitions could check for hardware-errors or other conditions.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">trueGuard</span><span class="p">(</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Another example for a guard function is this one: It permits a transition between states only after its third global
+invocation.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">waitThreeTimesGuardCounter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">waitThreeTimesGuard</span><span class="p">(</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">++</span><span class="n">waitThreeTimesGuardCounter</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Our example will print if a state is executing its entry(), stay(), leave() or abort action.
+These helper functions  will be later used to verbosely output state changes in the state machine.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">enum</span><span class="w"> </span><span class="nc">StateChange</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ENTRY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">STAY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">LEAVE</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ABORT</span>
+<span class="p">};</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">printStatus</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">StateChange</span><span class="w"> </span><span class="n">change</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">changeString</span><span class="p">;</span>
+<span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">ENTRY</span><span class="p">:</span>
+<span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Entry&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">STAY</span><span class="p">:</span>
+<span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Stay&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">LEAVE</span><span class="p">:</span>
+<span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Leave&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">ABORT</span><span class="p">:</span>
+<span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Abort&quot;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">getId</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">changeString</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Also, we want to monitor which states are considered active and which are not.
+This helper function that iterates all states in a list and writes to the terminal, if they are active or not.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">printActiveStates</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">StringStateList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">states</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">states</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">getId</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; isActive: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="creating-and-running-the-state-machine">
+<h3>Creating and running the state machine<a class="headerlink" href="#creating-and-running-the-state-machine" title="Link to this heading"></a></h3>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+</pre></div>
+</div>
+<p>First, we create the state machine and its internal states.
+States can be hierarchical and contain substates themselves to model a complex nested state machine.
+Thus, the state machine itself is modeled as a state.</p>
+<p>Each state is identified by an identifier of the template parameter <cite>idType</cite>. In this example, we use simple
+strings for this purpose.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">statemachine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;statemachine&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<section id="creating-the-states">
+<h4>Creating the states<a class="headerlink" href="#creating-the-states" title="Link to this heading"></a></h4>
+<p>The actual initial state and an all the other states on the first hierarchy level are defined.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_A&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_B&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_C1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_C1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_C2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_C2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_alpha&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_beta&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_gamma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_gamma&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_hierarchic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_hierarchic&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_1_final</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_final&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">level_2_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_2_A&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_2_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_2_B&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">level_2_final</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_2_final&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The states of the first hierarchy level are added to the state machine.</p>
+<p>The state machine / state container will manage these pointers for us after we call <cite>addSubstate</cite>.
+So you can safely only keep a reference to your <cite>statemachine</cite> container after constructing the state machine.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_A</span><span class="p">);</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_B</span><span class="p">);</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_C1</span><span class="p">);</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_C2</span><span class="p">);</span>
+
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_alpha</span><span class="p">);</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_beta</span><span class="p">);</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_gamma</span><span class="p">);</span>
+
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">);</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_final</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The states of the second hierarchy are added to the hierarchical state <cite>level_1_hierarchic</cite>.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_2_A</span><span class="p">);</span>
+<span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_2_B</span><span class="p">);</span>
+<span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_2_final</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="adding-transitions">
+<h4>Adding Transitions<a class="headerlink" href="#adding-transitions" title="Link to this heading"></a></h4>
+<p>To complete the construction of the state machine, we model the transitions between the states and register them.</p>
+<p>Each transition has a guard function, which is invoked by the internal state machine logic to check, if the
+transition should be executed or not. Only active states are tested for their outgoing transitions on each tick
+and thus can progress to a new state.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When a state has multiple transitions, the first transition to be tested and returning <cite>true</cite> wins.
+It is <em>highly</em> advisable to not rely on this mechanic and ensure that the guard function of the transitions
+test mutually exclusive logical expressions.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Parallel execution</p>
+<p>If you need to model parallel execution in the state machine, you have to define multiple initial
+sub states (a ‘parallel’ state in harels state chart chart notation). This is however beyond the scope
+of this example.</p>
+</div>
+<p>In this example, the transition from <cite>level_1_B</cite> to <cite>level_1_D</cite> will not be executed, if we execute the
+transition from level_1_B` to <cite>level_1_C</cite> first, even, if this happens in the same tick. However, <cite>level_1_A</cite> and
+<cite>level_1_alpha</cite> are started both when entering the state machine and can be used both for parallel execution.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">level_1_A</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_B</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Lambdas can be used as a guard function as well.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">level_1_B</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_C1</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+</pre></div>
+</div>
+<p>The following transition is never followed, as there is another allowed outgoing transition declared in the line
+above.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">level_1_B</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_C2</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+
+<span class="n">level_1_C1</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="n">level_1_C2</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+
+<span class="n">level_1_alpha</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_beta</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="n">level_1_beta</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_gamma</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="n">level_1_gamma</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>We only allow to proceed to the next state, if the internal final state has been reached.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_final</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">level_2_final</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+
+<span class="n">level_2_A</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_2_B</span><span class="p">,</span><span class="w"> </span><span class="n">waitThreeTimesGuard</span><span class="p">);</span>
+<span class="n">level_2_B</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_2_final</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The state machine allows for the registration of a callback method that is invoked upon a state change.
+This is where business logic would be called.</p>
+<p>In this example, we register a verbose printing method for each state change, so that we can see what’s happening
+on each tick.</p>
+<p>For convenience, we add all states to a list that we can easily iterate on for demonstration purposes.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">StringStateList</span><span class="w"> </span><span class="n">states</span><span class="p">;</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">statemachine</span><span class="p">);</span>
+
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_A</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_B</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_C1</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_C2</span><span class="p">);</span>
+
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_alpha</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_beta</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_gamma</span><span class="p">);</span>
+
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_final</span><span class="p">);</span>
+
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_2_A</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_2_B</span><span class="p">);</span>
+<span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_2_final</span><span class="p">);</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">states</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setEntryUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">ENTRY</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setStayUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">STAY</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setExitUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">LEAVE</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setAbortUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">ABORT</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="running-and-updating-the-state-logic">
+<h4>Running and updating the state logic<a class="headerlink" href="#running-and-updating-the-state-logic" title="Link to this heading"></a></h4>
+<p>Before we start the execution of the state machine, we print the initial state.
+Notice how none of the states is active without our manual intervention.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Initial state: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>When running a state machine, we expect execution to start in initial states. Initial states get activated
+by their parent state when the parent state is <cite>enter()</cite>’d. So once we activate the toplevel state - <cite>statemachine</cite> -
+we should see both our initial states become active as well.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">enter</span><span class="p">();</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;State after calling enter() on the top level state machine: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now we iterate via <cite>stay()</cite>, as long as we do not reach the final state of the state machine (<cite>level_1_final</cite>).
+For verbosity, we print the current state after each tick.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">do</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Iteration: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">++</span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">stay</span><span class="p">();</span>
+<span class="w">    </span><span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+<span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">level_1_final</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Finally, we execute one additional tick.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;One additional tick after reaching the final state:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">stay</span><span class="p">();</span>
+<span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="resetting-state-machines">
+<h4>Resetting State Machines<a class="headerlink" href="#resetting-state-machines" title="Link to this heading"></a></h4>
+<p>State machines are caught in a final states if they have finished executing whatever they were meant to do.
+To reset the state machine, we need to deactivate all states in the toplevel state, then reactivate all the
+initial states. Surprisingly, this is exactly what exit() and enter() do.</p>
+<p>To deactivate the FSM, it is enough to exit it:</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Stopping state machine by calling exit(), so we can reset it later&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">exit</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Observe in the console message above that <cite>level_1_final</cite> does not issue a “LEAVING”-message?
+Final states do not execute their <cite>exit()</cite> functions, as conceptually, they represent a sink for the execution
+token. If the token could leave the state again… well, it would not be final, would it?</p>
+<p>Note that any still active states would <cite>abort()</cite>, so it is always a good idea to ensure that your final states
+are active.</p>
+<p>Now, we can simply re-<cite>enter()</cite> the toplevel state to activate the initial states and start over.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Resetting state machine to initial state by calling enter()&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">enter</span><span class="p">();</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading"></a></h2>
+<p>Here’s the complete source code from this example:</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="linenos">  2</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;list&gt;</span>
+<span class="linenos">  3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+<span class="linenos">  4</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
+<span class="linenos">  5</span>
+<span class="linenos">  6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;statemachine/HierarchicState.hpp&quot;</span>
+<span class="linenos">  7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;statemachine/Transition.hpp&quot;</span>
+<span class="linenos">  8</span>
+<span class="linenos">  9</span><span class="k">namespace</span><span class="w"> </span><span class="nn">cena</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">semodia</span><span class="o">::</span><span class="nn">controlengine</span><span class="o">::</span><span class="nn">native</span><span class="p">;</span>
+<span class="linenos"> 10</span><span class="k">namespace</span><span class="w"> </span><span class="nn">statemachine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">cena</span><span class="o">::</span><span class="nn">util</span><span class="o">::</span><span class="nn">statemachine</span><span class="p">;</span>
+<span class="linenos"> 11</span><span class="k">using</span><span class="w"> </span><span class="n">StringState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">statemachine</span><span class="o">::</span><span class="n">HierarchicState</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="linenos"> 12</span><span class="k">using</span><span class="w"> </span><span class="n">StringStateList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+<span class="linenos"> 13</span>
+<span class="linenos"> 14</span><span class="kt">void</span><span class="w"> </span><span class="nf">trueGuard</span><span class="p">(</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span>
+<span class="linenos"> 15</span><span class="p">{</span>
+<span class="linenos"> 16</span><span class="w">    </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 17</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 18</span><span class="p">}</span>
+<span class="linenos"> 19</span>
+<span class="linenos"> 20</span><span class="n">std</span><span class="o">::</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">waitThreeTimesGuardCounter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos"> 21</span><span class="kt">void</span><span class="w"> </span><span class="nf">waitThreeTimesGuard</span><span class="p">(</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span>
+<span class="linenos"> 22</span><span class="p">{</span>
+<span class="linenos"> 23</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">++</span><span class="n">waitThreeTimesGuardCounter</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="linenos"> 24</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 25</span><span class="w">        </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 26</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 27</span><span class="w">    </span><span class="k">else</span>
+<span class="linenos"> 28</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 29</span><span class="w">        </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 30</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 31</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 32</span><span class="p">}</span>
+<span class="linenos"> 33</span>
+<span class="linenos"> 34</span><span class="k">enum</span><span class="w"> </span><span class="nc">StateChange</span>
+<span class="linenos"> 35</span><span class="p">{</span>
+<span class="linenos"> 36</span><span class="w">    </span><span class="n">ENTRY</span><span class="p">,</span>
+<span class="linenos"> 37</span><span class="w">    </span><span class="n">STAY</span><span class="p">,</span>
+<span class="linenos"> 38</span><span class="w">    </span><span class="n">LEAVE</span><span class="p">,</span>
+<span class="linenos"> 39</span><span class="w">    </span><span class="n">ABORT</span>
+<span class="linenos"> 40</span><span class="p">};</span>
+<span class="linenos"> 41</span>
+<span class="linenos"> 42</span><span class="kt">void</span><span class="w"> </span><span class="nf">printStatus</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">StateChange</span><span class="w"> </span><span class="n">change</span><span class="p">)</span>
+<span class="linenos"> 43</span><span class="p">{</span>
+<span class="linenos"> 44</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">changeString</span><span class="p">;</span>
+<span class="linenos"> 45</span><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
+<span class="linenos"> 46</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 47</span><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">ENTRY</span><span class="p">:</span>
+<span class="linenos"> 48</span><span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Entry&quot;</span><span class="p">;</span>
+<span class="linenos"> 49</span><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos"> 50</span><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">STAY</span><span class="p">:</span>
+<span class="linenos"> 51</span><span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Stay&quot;</span><span class="p">;</span>
+<span class="linenos"> 52</span><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos"> 53</span><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">LEAVE</span><span class="p">:</span>
+<span class="linenos"> 54</span><span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Leave&quot;</span><span class="p">;</span>
+<span class="linenos"> 55</span><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos"> 56</span><span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="no">ABORT</span><span class="p">:</span>
+<span class="linenos"> 57</span><span class="w">            </span><span class="n">changeString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Abort&quot;</span><span class="p">;</span>
+<span class="linenos"> 58</span><span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="linenos"> 59</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 60</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">getId</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">changeString</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos"> 61</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 62</span><span class="p">}</span>
+<span class="linenos"> 63</span>
+<span class="linenos"> 64</span><span class="kt">void</span><span class="w"> </span><span class="nf">printActiveStates</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">StringStateList</span><span class="o">&amp;</span><span class="w"> </span><span class="n">states</span><span class="p">)</span>
+<span class="linenos"> 65</span><span class="p">{</span>
+<span class="linenos"> 66</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">states</span><span class="p">)</span>
+<span class="linenos"> 67</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 68</span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">getId</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; isActive: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos"> 69</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 70</span><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 71</span><span class="p">}</span>
+<span class="linenos"> 72</span>
+<span class="linenos"> 73</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="linenos"> 74</span><span class="p">{</span>
+<span class="linenos"> 75</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">statemachine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;statemachine&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 76</span>
+<span class="linenos"> 77</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_A&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 78</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_B&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 79</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_C1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_C1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 80</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_C2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_C2&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 81</span>
+<span class="linenos"> 82</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_alpha&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 83</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_beta&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 84</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_gamma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_gamma&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 85</span>
+<span class="linenos"> 86</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_hierarchic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_hierarchic&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 87</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_1_final</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_1_final&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_2_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_2_A&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 90</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_2_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_2_B&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 91</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">level_2_final</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">StringState</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;level_2_final&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+<span class="linenos"> 92</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_A</span><span class="p">);</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_B</span><span class="p">);</span>
+<span class="linenos"> 96</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_C1</span><span class="p">);</span>
+<span class="linenos"> 97</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_C2</span><span class="p">);</span>
+<span class="linenos"> 98</span>
+<span class="linenos"> 99</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_alpha</span><span class="p">);</span>
+<span class="linenos">100</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_beta</span><span class="p">);</span>
+<span class="linenos">101</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_gamma</span><span class="p">);</span>
+<span class="linenos">102</span>
+<span class="linenos">103</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">);</span>
+<span class="linenos">104</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_1_final</span><span class="p">);</span>
+<span class="linenos">105</span>
+<span class="linenos">106</span><span class="w">    </span><span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_2_A</span><span class="p">);</span>
+<span class="linenos">107</span><span class="w">    </span><span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_2_B</span><span class="p">);</span>
+<span class="linenos">108</span><span class="w">    </span><span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addSubstate</span><span class="p">(</span><span class="n">level_2_final</span><span class="p">);</span>
+<span class="linenos">109</span>
+<span class="linenos">110</span><span class="w">    </span><span class="n">level_1_A</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_B</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">111</span>
+<span class="linenos">112</span><span class="w">    </span><span class="n">level_1_B</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_C1</span><span class="p">,</span><span class="w"> </span><span class="p">[](</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="p">});</span>
+<span class="linenos">113</span>
+<span class="linenos">114</span><span class="w">    </span><span class="n">level_1_B</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_C2</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span><span class="w">    </span><span class="n">level_1_C1</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">117</span><span class="w">    </span><span class="n">level_1_C2</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">118</span>
+<span class="linenos">119</span><span class="w">    </span><span class="n">level_1_alpha</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_beta</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">120</span><span class="w">    </span><span class="n">level_1_beta</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_gamma</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">121</span><span class="w">    </span><span class="n">level_1_gamma</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">122</span>
+<span class="linenos">123</span><span class="w">    </span><span class="n">level_1_hierarchic</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_1_final</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">&amp;</span><span class="p">](</span><span class="kt">bool</span><span class="o">&amp;</span><span class="w"> </span><span class="n">allow</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">allow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">level_2_final</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">();</span><span class="w"> </span><span class="p">});</span>
+<span class="linenos">124</span>
+<span class="linenos">125</span><span class="w">    </span><span class="n">level_2_A</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_2_B</span><span class="p">,</span><span class="w"> </span><span class="n">waitThreeTimesGuard</span><span class="p">);</span>
+<span class="linenos">126</span><span class="w">    </span><span class="n">level_2_B</span><span class="o">-&gt;</span><span class="n">addTransition</span><span class="p">(</span><span class="n">level_2_final</span><span class="p">,</span><span class="w"> </span><span class="n">trueGuard</span><span class="p">);</span>
+<span class="linenos">127</span>
+<span class="linenos">128</span><span class="w">    </span><span class="n">StringStateList</span><span class="w"> </span><span class="n">states</span><span class="p">;</span>
+<span class="linenos">129</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">statemachine</span><span class="p">);</span>
+<span class="linenos">130</span>
+<span class="linenos">131</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_A</span><span class="p">);</span>
+<span class="linenos">132</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_B</span><span class="p">);</span>
+<span class="linenos">133</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_C1</span><span class="p">);</span>
+<span class="linenos">134</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_C2</span><span class="p">);</span>
+<span class="linenos">135</span>
+<span class="linenos">136</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_alpha</span><span class="p">);</span>
+<span class="linenos">137</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_beta</span><span class="p">);</span>
+<span class="linenos">138</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_gamma</span><span class="p">);</span>
+<span class="linenos">139</span>
+<span class="linenos">140</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_hierarchic</span><span class="p">);</span>
+<span class="linenos">141</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_1_final</span><span class="p">);</span>
+<span class="linenos">142</span>
+<span class="linenos">143</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_2_A</span><span class="p">);</span>
+<span class="linenos">144</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_2_B</span><span class="p">);</span>
+<span class="linenos">145</span><span class="w">    </span><span class="n">states</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">level_2_final</span><span class="p">);</span>
+<span class="linenos">146</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">states</span><span class="p">)</span>
+<span class="linenos">147</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">148</span><span class="w">        </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setEntryUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">ENTRY</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="linenos">149</span><span class="w">        </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setStayUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">STAY</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="linenos">150</span><span class="w">        </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setExitUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">LEAVE</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="linenos">151</span><span class="w">        </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">setAbortUserAction</span><span class="p">([</span><span class="o">&amp;</span><span class="p">]()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">printStatus</span><span class="p">(</span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="n">ABORT</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+<span class="linenos">152</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">153</span>
+<span class="linenos">154</span>
+<span class="linenos">155</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Initial state: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">156</span><span class="w">    </span><span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+<span class="linenos">157</span>
+<span class="linenos">158</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">enter</span><span class="p">();</span>
+<span class="linenos">159</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;State after calling enter() on the top level state machine: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">160</span><span class="w">    </span><span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+<span class="linenos">161</span>
+<span class="linenos">162</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">163</span><span class="w">    </span><span class="k">do</span>
+<span class="linenos">164</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">165</span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">166</span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Iteration: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">++</span><span class="n">iterations</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">167</span><span class="w">        </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">stay</span><span class="p">();</span>
+<span class="linenos">168</span><span class="w">        </span><span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+<span class="linenos">169</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">level_1_final</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">isActive</span><span class="p">());</span>
+<span class="linenos">170</span>
+<span class="linenos">171</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">172</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;One additional tick after reaching the final state:&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">173</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">stay</span><span class="p">();</span>
+<span class="linenos">174</span><span class="w">    </span><span class="n">printActiveStates</span><span class="p">(</span><span class="n">states</span><span class="p">);</span>
+<span class="linenos">175</span>
+<span class="linenos">176</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Stopping state machine by calling exit(), so we can reset it later&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">177</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">exit</span><span class="p">();</span>
+<span class="linenos">178</span>
+<span class="linenos">179</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Resetting state machine to initial state by calling enter()&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos">180</span><span class="w">    </span><span class="n">statemachine</span><span class="o">-&gt;</span><span class="n">enter</span><span class="p">();</span>
+<span class="linenos">181</span>
+<span class="linenos">182</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">183</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="sdk.html" class="btn btn-neutral float-left" title="Statemachine Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../example_tasks.html" class="btn btn-neutral float-right" title="Example: Tasks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

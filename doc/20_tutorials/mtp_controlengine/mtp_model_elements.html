@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MTP Model Elements &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CENA DEMO" href="mtp_example_demo/index.html" />
+    <link rel="prev" title="MTP &amp; MTP ControlEngines" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00_general/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">MTP &amp; MTP ControlEngines</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">MTP Model Elements</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#aspects-of-an-mtp">Aspects of an MTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#types-and-class-names-in-the-mtp">Types and class names in the MTP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-assemblies">Data Assemblies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mtp_example_demo/index.html">CENA DEMO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing_ce_tests.html">Testing ControlEngines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="writing_ce_tests.html#testing-services">Testing Services</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../logging/index.html">CENAs Logging Subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../statemachines/index.html">CENAs State Machine API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_tasks.html">Example: Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_util_computedValues.html">Example: Util ComputedValues</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
+          <li class="breadcrumb-item"><a href="index.html">MTP &amp; MTP ControlEngines</a></li>
+      <li class="breadcrumb-item active">MTP Model Elements</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/20_tutorials/mtp_controlengine/mtp_model_elements.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mtp-model-elements">
+<span id="mtp-elements-usage"></span><h1>MTP Model Elements<a class="headerlink" href="#mtp-model-elements" title="Link to this heading"></a></h1>
+<p>Before we dive into writing a <cite>ControlEngine</cite> (CE), let’s review the key elements used by the MTP Model Core.</p>
+<p>From a Software standpoint, a MTP runtime representation is roughly composed of the following components:</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-57658a4c86f8e159a1b1d72172967d35886da29e.png" alt="&#64;startuml
+class mtp
+
+mtp o-- &quot;0..n&quot; DataAssembly : &quot;CommunicationSet&quot;
+mtp o- &quot;0..n&quot; Service      : &quot;ServiceSet&quot;
+
+Service *-- &quot;1..n&quot; Procedure
+Service o-- ConfigurationParameter
+
+class ConfigurationParameter
+{
+    dataAssembly : ParameterElement
+}
+
+class Procedure
+{
+    list&lt;service state callbacks&gt;
+    +createProcedureParameter(name, ParameterElement&amp;)
+    +createProcessValueIn(name, InputElement&amp;)
+    +createReportValue(name, IndicatorElement&amp;)
+    +createProcessValueOut(name, IndicatorElement&amp;)
+}
+
+Procedure *-- &quot;0..n&quot; ProcedureParameter
+Procedure *-- &quot;0..n&quot; ProcessValueIn
+Procedure *-- &quot;0..n&quot; ReportValue
+Procedure *-- &quot;0..n&quot; ProcessValueOut
+
+class ProcedureParameter
+{
+    dataAssembly : ParameterElement
+}
+
+class ProcessValueIn
+{
+    dataAssembly : InputElement
+}
+
+class ProcessValueOut
+{
+    dataAssembly : IndicatorElement
+}
+
+class ReportValue
+{
+    dataAssembly : IndicatorElement
+}
+
+DataAssembly &lt;|-- ActiveElement
+DataAssembly &lt;|-- OperationElement
+DataAssembly &lt;|-- IndicatorElement
+DataAssembly &lt;|-- InputElement
+
+&#64;enduml"/>
+</p>
+<p><em>Figure: MTP object hierarchy and associations of relevance for the CENA. Hint: Open/view the image separately if illegible.</em></p>
+<p>The above diagram is intended to provide an overview, it is neither
+exhaustive, complete or fully accurate.</p>
+<p>An MTP Control Engine will generally manage <cite>DataAssemblies</cite> and/or
+implement the “business logic” (<cite>Service</cite> state callbacks) of <cite>Procedures</cite>.</p>
+<p>This part of the documentation describes concepts behind the major
+MTP components and provides some guidelines on their use.</p>
+<section id="aspects-of-an-mtp">
+<h2>Aspects of an MTP<a class="headerlink" href="#aspects-of-an-mtp" title="Link to this heading"></a></h2>
+<p id="index-0">The MTP has several “aspects” - each aspect constitutes a conceptual domain of functionality (e.g. Alarms, Services or HMI).
+When viewed as part of the CENA, these are roughly “top-level folders” that contain MTP stuff.</p>
+<p>We’ll focus only on those of relevance:</p>
+<ul class="simple">
+<li><p>The <cite>Services</cite> aspect contains services, which constitute the state-based-control paradigm underlying the MTP.</p></li>
+<li><p>The <cite>Communications</cite> aspect contains server-related infos and more importantly the <cite>InstanceList</cite>,
+which is where all MTP <cite>DataAssemblies</cite> that are not directly integrated into <cite>Services</cite> end up.</p></li>
+</ul>
+</section>
+<section id="types-and-class-names-in-the-mtp">
+<h2>Types and class names in the MTP<a class="headerlink" href="#types-and-class-names-in-the-mtp" title="Link to this heading"></a></h2>
+<p>Throughout the CENA and the MTP, you will find that type prefixes and abbreviations are used in abundance. For better
+or for worse, naming in the VDI 2658 draws inspiration from older X86 architectures and the IEC 61131.</p>
+<section id="common-data-type-name-prefixes">
+<h3>Common data type name prefixes<a class="headerlink" href="#common-data-type-name-prefixes" title="Link to this heading"></a></h3>
+<p>Datatype abbreviations common throughout the MTP are:</p>
+<ul class="simple">
+<li><p><cite>Ana…</cite>, e.g. in <cite>AnaView</cite>, denotes that the data structure aims to support <strong>floating point</strong> values</p></li>
+<li><p><cite>Bin…</cite>, e.g. in <cite>BinView</cite>, denotes that the data structure aims to support <strong>boolean</strong> values</p></li>
+<li><p><cite>DInt…</cite>, e.g. in <cite>DIntView</cite>, denotes that the data structure aims to support <strong>discrete integer</strong> values</p></li>
+<li><p><cite>String…</cite>, e.g. in <cite>StringView</cite>, denotes that the data structure aims to support <strong>strings of human readable text</strong></p></li>
+</ul>
+</section>
+<section id="common-usage-and-ownership-indicators">
+<h3>Common Usage and ownership indicators<a class="headerlink" href="#common-usage-and-ownership-indicators" title="Link to this heading"></a></h3>
+<p>Some variables and data structures will hint at their indented use by suffixing or infixing one of the following:</p>
+<ul>
+<li><p><cite>Op</cite>, as in ‘operator’, is an indicator that this variable is intended to be set in an HMI/P&amp;ID through manual interaction of an operator</p></li>
+<li><p><cite>Aut</cite>, as in ‘automatic’, denotes that something handled by POL or PEA without human/operator intervention. Automatic may fall into two categories:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>Ext</cite>, as in ‘external’, is an indicator that this variable is intended to be set by the POL as part of a recipe. This would be “external” from the PEA standpoint.</p></li>
+<li><p><cite>Int</cite>, as in ‘internal’, denotes variables that the PEA sets on its own.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>‘Automatic’ is implied.
+Many MTP data structures will use variables like <cite>Op</cite>, <cite>Int</cite> and <cite>Ext</cite> - the automatic mode is implied by
+<cite>Int</cite> and <cite>Ext</cite>.</p>
+</div>
+<ul>
+<li><p><cite>Man</cite>, as in ‘manual’, can be encountered in two contexts</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If <cite>Man</cite> is a suffix to a variable, like <cite>VMan</cite>, it indicates the value is designed be set by a (local) interface/HMI, e.g. a display panel on the unit. <cite>Man</cite> is not used for variables in SCADA components.</p></li>
+<li><p>If <cite>Man</cite> is part of a datastructure, like <cite>BinMan</cite>, it indicates that the data structure is a setpoint of some kind</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><cite>Act</cite>, as in ‘actual’ or ‘active’, tends to be a boolean output denoting the current state of something, e.g. an operation or source mode</p></li>
+<li><p><cite>Req</cite>, as in ‘request’, is an indicator that a value was chosen (usually from <cite>Int</cite>, <cite>Ext</cite> or <cite>Op</cite> or <cite>Man</cite>), but is not in effect yet.</p></li>
+</ul>
+</section>
+<section id="base-functions">
+<h3>Base Functions<a class="headerlink" href="#base-functions" title="Link to this heading"></a></h3>
+<p>As you might be suspecting, things like “operation modes” or “source modes” encountered throughout multiple
+MTP data structures are defined by the VDI 2568-3; these explicitly state how variables like <cite>Man</cite>, <cite>Act</cite>, <cite>Op</cite>
+behave and what they do.</p>
+<p>Detailing base functions is well beyond the scope of this tutorial. They are handled and adhered to by the model core.</p>
+</section>
+</section>
+<section id="data-assemblies">
+<h2>Data Assemblies<a class="headerlink" href="#data-assemblies" title="Link to this heading"></a></h2>
+<p id="index-1">The MTP calls every complex data structure that represents data <cite>DataAssemblies</cite>. All <cite>DataAssemblies</cite> have a string name
+and description to explain what they are and do.</p>
+<p>To you as a software developer, a <cite>DataAssembly</cite> is a class with a pre-conceived use case, e.g. setpoints, output values, etc.</p>
+<p><cite>DataAssemblies</cite> are “grouped” by what they are used for.</p>
+<ul class="simple">
+<li><p><cite>IndicatorElements</cite> are PEA output variables</p></li>
+<li><p><cite>InputElements</cite> are PEA inputs variables</p></li>
+<li><p><cite>OperationElements</cite> are setpoints</p></li>
+<li><p><cite>ActiveElements</cite> are actuators</p></li>
+<li><p><cite>ServiceElements</cite> are relate to the control or parametrization of services and procedures</p></li>
+</ul>
+<p><cite>DataAssemblies</cite> can live stand-alone in the <cite>InstanceList</cite>, but it is far more common that they are situated in a <cite>Service</cite>
+as a parameter.</p>
+<section id="indicator-elements">
+<h3>Indicator Elements<a class="headerlink" href="#indicator-elements" title="Link to this heading"></a></h3>
+<p><cite>IndicatorElements</cite> act as “Output Variables” that can be updated by the PEA as output variables.</p>
+<p>In addition to name and description, they will have a <cite>VOut</cite> as output and some additional type-related stuff.</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-d530556b75faa7cf8eacbbfabe82886ffc419848.png" alt="&#64;startuml
+class IndicatorElement extends DataAssembly
+
+IndicatorElement &lt;|-- BinView
+IndicatorElement &lt;|-- AnaView
+IndicatorElement &lt;|-- DIntView
+IndicatorElement &lt;|-- StringView
+
+class BinMon extends BinView
+class AnaMon extends AnaView
+class DintMon extends DIntView
+&#64;enduml"/>
+</p>
+</section>
+<section id="input-elements">
+<h3>Input Elements<a class="headerlink" href="#input-elements" title="Link to this heading"></a></h3>
+<p><cite>InputElements</cite> are the reverse of <cite>IndicatorElements</cite>: They allow the POL to simply write a value, at any point in time.
+They are most commonly encountered in <cite>Services</cite> to allow a POL to write PEA-external measurement values, e.g. such
+that are read by an external sensor or provided by a different PEA.</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-b8374979cac3f043e227ae459783efbf4804bc00.png" alt="&#64;startuml
+class InputElement extends DataAssembly
+
+InputElement &lt;|-- BinProcessValueIn
+InputElement &lt;|-- DIntProcessValueIn
+InputElement &lt;|-- AnaProcessValueIn
+&#64;enduml"/>
+</p>
+</section>
+<section id="operation-elements">
+<h3>Operation Elements<a class="headerlink" href="#operation-elements" title="Link to this heading"></a></h3>
+<p id="explain-mtp-operationelements"><cite>[Bin|DInt|Ana]Man</cite> <cite>DataAssemblies</cite> are used to provide a SetPoint (<cite>VOut</cite>) that the POL can influence.</p>
+<p>This setpoint-logic is “hidden” by CENA’s high-level API in the following manner:</p>
+<blockquote>
+<div><ul>
+<li><p>The current setpoint is acquired using <code class="docutils literal notranslate"><span class="pre">getCurrentSetpoint()</span></code> and corresponds to <cite>VOut</cite></p></li>
+<li><p>The new setpoint, as requested by the POL by setting <cite>VMan</cite>, is set and retrieved using <code class="docutils literal notranslate"><span class="pre">getUpdatedSetPoint()</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><cite>[Bin|DInt|Ana]ManInt</cite> also provide <code class="docutils literal notranslate"><span class="pre">requestSetpoint()</span></code> along with a <cite>SourceMode</cite> to update <cite>VOut</cite> either from  <cite>VMan</cite> (POL) or <cite>VInt</cite></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Assignments in code and implicit type conversion is mapped to the Feedback <cite>VFbk</cite> value.</p></li>
+</ul>
+</div></blockquote>
+<p class="plantuml">
+<img src="../../_images/plantuml-5e55d5dc0408280fa8a6f1a5e8794e42801db0f9.png" alt=" &#64;startuml
+ class OperationElement {
+     +requestSetpoint()
+     +getCurrentSetpoint()
+     +VOut
+ }
+
+ class ParameterElement extends OperationElement
+ {
+     + VExt
+     + VInt
+     + VOp
+ }
+
+ OperationElement &lt;|-- BinMan
+ OperationElement &lt;|-- AnaMan
+ OperationElement &lt;|-- DIntMan
+
+ class BinManInt extends BinMan
+ {
+     +SourceMode
+     +VInt
+ }
+ class AnaManInt extends AnaMan
+ {
+     +SourceMode
+     +VInt
+ }
+ class DIntManInt extends DIntMan
+{
+     +SourceMode
+     +VInt
+ }
+ class OperationElement extends DataAssembly
+ &#64;enduml"/>
+</p>
+<p>In addition to the POL-setpoint, there exists the <cite>(Bin|Ana|DInt)ManInt</cite> dual setpoint type: These have two
+inputs (<cite>VInt</cite> and <cite>VMan</cite>) which can both provide a setpoint for <cite>VOut</cite>. To control which of the two gets to influence
+<cite>VOut</cite>, there is a <em>SourceMode</em>.</p>
+<p id="explain-mtp-operationelements-vout-vrbk">Additionally, you should keep in mind that setpoints of integer elements (<cite>[Ana|DInt]Man(Int)?</cite>) are range-limited. So
+what the POL requests may not be what it gets:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Value limitation is always applied to the setpoint <cite>VOut</cite> when updating and requesting values</p></li>
+<li><p><cite>VRbk</cite> reflects the setpoint as requested by the POL (without value limitation)</p></li>
+</ul>
+</div></blockquote>
+<section id="parameterelement">
+<h4>ParameterElement<a class="headerlink" href="#parameterelement" title="Link to this heading"></a></h4>
+<p><cite>ParameterElement</cite> can be considered a special kind of <cite>(Ana|DInt|Bin|String)ManInt</cite>. They also have multiple setpoint
+input sources, but these are <cite>VOp</cite>, <cite>VExt</cite> and <cite>VInt</cite>.</p>
+<p><cite>ParameterElement</cite> serve as input parameters for <cite>Services</cite> and <cite>Procedures</cite> and act a little different then the other ones.</p>
+<p><cite>ParameterElement</cite> have a separate “Apply”-Logic for transferring a requested value (‘VReq’) to the actual value (<cite>VOut</cite>).
+When a value can be applied and who may apply it is usually defined by the ServiceSheet, i.e. not directly visible in the MTP or its runtime.</p>
+</section>
+</section>
+<section id="active-elements">
+<h3>Active Elements<a class="headerlink" href="#active-elements" title="Link to this heading"></a></h3>
+<p>These are a bit more elaborate, but simple to explain: An <cite>ActiveElement</cite> is either a valve, a drive or a controller.
+These all contain rather elaborate business logic that defines how they behave.</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-9c37d3758dc050cdc77610654bc7fa5c3f649940.png" alt="&#64;startuml
+class ActiveElement extends DataAssembly
+
+ActiveElement &lt;|-- BinVlv
+ActiveElement &lt;|-- AnaVlv
+ActiveElement &lt;|-- BinDrv
+ActiveElement &lt;|-- AnaDrv
+ActiveElement &lt;|-- PIDCtrl
+&#64;enduml"/>
+</p>
+<p>From a software development standpoint, the CENA’s high-level function reduces all of these <em>DataAssemblies</em> to
+a set of callbacks that are expected to <code class="docutils literal notranslate"><span class="pre">open()</span></code>, <code class="docutils literal notranslate"><span class="pre">close()</span></code>, <code class="docutils literal notranslate"><span class="pre">forward()</span></code> or <code class="docutils literal notranslate"><span class="pre">reverse()</span></code> the respective drives and valves.</p>
+<p>There are also usually <code class="docutils literal notranslate"><span class="pre">OpenFbk()</span></code>, <code class="docutils literal notranslate"><span class="pre">CloseFbk()</span></code> etc. that will be invoked to find out in what state the actual
+physical component is in. Some valves and drives provide explicit sensors that allow verifying the position, while
+others may only allow determining the current setpoint.</p>
+</section>
+<section id="services-procedures">
+<h3>Services &amp; Procedures<a class="headerlink" href="#services-procedures" title="Link to this heading"></a></h3>
+<p><cite>Services</cite> are state machines that fulfill a process function - e.g. “mix” or “heat”. The state machine that underlies
+each <cite>Service</cite> offered by a PEA is provided by the MTP (based on IEC 61512) and is handled by the service class. The
+POL and the PEA may request a <cite>Service</cite> to start, stop, restart, pause, hold, abort, etc.</p>
+<p>The MTP state model is loosely derived from the IEC 62424 and looks like this in CENA:</p>
+<p class="plantuml">
+<img src="../../_images/plantuml-334b2bdcce47552a5cde4dcb5fd5982d3649191f.png" alt="&#64;startuml
+state LEVEL5 {
+    [*] -&gt; UNDEFINED
+    UNDEFINED -&gt; IDLE : &quot;!offline&quot;
+    IDLE -&gt; UNDEFINED : &quot;offline&quot;
+    IDLE -&gt; LEVEL4 : &quot;cmd(START):
+    LEVEL4 -&gt; RESETTING : &quot;cmd(RESET)&quot;
+    state LEVEL4 {
+        [*] -&gt; LEVEL3
+        state LEVEL3 {
+            [*] -&gt; LEVEL2
+            state LEVEL2 {
+               [*] -&gt; LEVEL2_INITIAL
+               state LEVEL1 {
+                   [*] -&gt; EXECUTE
+                   EXECUTE --&gt; PAUSING
+                   PAUSING -&gt; PAUSED
+                   PAUSED -&gt; RESUMING
+                   RESUMING -&gt; EXECUTE
+                   EXECUTE -&gt; [*]
+               }
+               LEVEL1 --&gt; STARTING : &quot;cmd(RESTART) &amp;&amp; isActive(EXECUTING)&quot;
+               LEVEL2_INITIAL -&gt; STARTING : &quot;cmd(START)&quot;
+               LEVEL2_INITIAL --&gt; UNHOLDING  : &quot;cmd(UNHOLD)&quot;
+               STARTING -&gt; LEVEL1  : &quot;completed(STARTING)&quot;
+               UNHOLDING -&gt; LEVEL1 : &quot;completed(UNHOLDING)&quot;
+               LEVEL1 -&gt; COMPLETING : &quot;!self-completing &amp; cmd(COMPLETE) \n or \n self-completing &amp; completed(EXECUTING))&quot;
+               COMPLETING -&gt; [*]
+            }
+            LEVEL2--&gt;HOLDING  : &quot;cmd(HOLD)&quot;
+            HOLDING-&gt;HELD
+            HELD--&gt;LEVEL2 : &quot;cmd(UNHOLD)&quot;
+        }
+        LEVEL3 --&gt; STOPPING
+        STOPPING -&gt; STOPPED
+        STOPPED -&gt; [*]
+    }
+    LEVEL4 --&gt; ABORTING
+    LEVEL4 -&gt; COMPLETED
+    ABORTING -&gt; ABORTED
+    ABORTED -&gt; RESETTING
+    COMPLETED --&gt; RESETTING : &quot;cmd(RESET) &amp;&amp; completed(COMPLETING)&quot;
+    RESETTING -&gt; IDLE
+}
+
+&#64;enduml"/>
+</p>
+<p><em>Figure: MTP States and Transitions for state-based control (as per `Service.cpp`).</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that some extra states have been inserted in the CENA to account for requirements of formally modelled UML state machines.
+These extra states will not be visible or accessible in any way at runtime, they are purely internal.</p>
+</div>
+<p>What is done inside each state is described by a <cite>ServiceProcedure</cite> - a <cite>Service</cite> may contain more than one <cite>Procedure</cite>, e.g.
+as different ways to “mix” (“mixAndHeat”, “mixSlowly”, “mixHeftily”, etc.).</p>
+<p>The API provides all management and update functionality for <cite>Services</cite> and <cite>Procedures</cite>. The userland code only needs
+to add and use <cite>Service</cite> and/or <cite>Procedure</cite> parameters and provide callbacks for each <cite>Procedures</cite> state.</p>
+<section id="service-parameters">
+<h4>Service Parameters<a class="headerlink" href="#service-parameters" title="Link to this heading"></a></h4>
+<p>A <cite>Service</cite> may have <cite>ConfigurationParameters</cite>, which essentially create an alias to a <cite>ParameterElement</cite>-derived <cite>DataAssembly</cite>.
+The underlying <cite>[Bin|DInt|Ana|String]ServParam</cite> classes are derived from <cite>OperationElements</cite> and describe a setpoint of
+some sort.</p>
+<p id="explain-mtp-serparam-vreq"><cite>ParameterElements</cite>, in contrast to other <cite>OperationElements</cite>, have no <em>VRbk</em> - the <em>VReq</em> variable reflects the latest
+effectively valid requested setpoint (with applied limits if applicable) that will update <cite>VOut</cite>.</p>
+<p><cite>ParameterElements</cite> setpoints <cite>VOut</cite> are updated by the <cite>Service</cite> when applied using the <cite>ApplyBaseFunction</cite>.</p>
+<p>Create a <cite>ParameterElements</cite> derived class outside of the MTP and register it as a <cite>ConfigurationParameter</cite> by using <code class="docutils literal notranslate"><span class="pre">service.createServiceConfigurationParameter()</span></code>.</p>
+<p>From this point on, the POL and <cite>Service</cite> are going to update setpoints when and as appropriate. The <cite>ServParam</cite> can be
+implicitly used as a “normal” variable, which will update the <cite>VFbk</cite> field (Feedback of real current variable for POL).
+You may request setpoints on behalf of the PEA, but the update strategy depends on the source/operationmode settings.</p>
+</section>
+<section id="procedure-parameters">
+<h4>Procedure Parameters<a class="headerlink" href="#procedure-parameters" title="Link to this heading"></a></h4>
+<p>Procedures Parameters are one of the following:</p>
+<ul class="simple">
+<li><p><em>ProcedureParameters</em>, which function exactly like service configuration parameters. Note that the MTP model core only permits updating procedures parameters if the procedure is active or was selected in IDLE.</p></li>
+<li><p><em>ProcessValueIns</em>, which are <cite>ServInParams</cite>, a simple input variable writable by the POL at any point in time</p></li>
+<li><p><em>ProcessValueOut</em>, which are simple <cite>IndicatorElements</cite> and can be updated as required</p></li>
+<li><p><em>ReportValues</em>, which are simple <cite>IndicatorElements</cite> and can be updated as required</p></li>
+</ul>
+<p><cite>ProcedureParameters</cite> are exactly the same underlying setpoint-type classes as <cite>ServiceParameters</cite>, they are just updated
+at a different point in a <cite>Services</cite> state machine.</p>
+</section>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading"></a></h2>
+<p>This article has presented you with the nitty-gritty fundamental classes that make up CENAs MTP Model Core.</p>
+<p>To see how to create a realistic, usable <cite>Control Engine</cite>, you should read <a class="reference internal" href="mtp_example_demo/example_mtp_controlengine.html#example-mtp-controlengine"><span class="std std-ref">The Control Engine Example</span></a>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="MTP &amp; MTP ControlEngines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mtp_example_demo/index.html" class="btn btn-neutral float-right" title="CENA DEMO" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

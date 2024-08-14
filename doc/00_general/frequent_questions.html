@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. Frequently Asked Questions &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Changelog" href="../doc.generated/CHANGELOG.html" />
+    <link rel="prev" title="4. Feature List" href="feature_list.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">About</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="before_you_start.html">1. Before you start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about_mtp.html">2. Module Type Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about_noa.html">3. NAMUR Open Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_list.html">4. Feature List</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Frequently Asked Questions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-exactly-is-contained-in-cena-some-core-driver-referenced-in-this-documentation-is-missing-in-my-cena">5.1. What exactly is contained in CENA? Some core/driver referenced in this documentation is missing in my CENA!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-much-does-it-cost-what-are-the-license-terms">5.2. How much does it cost? What are the license terms?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#i-already-have-a-product-that-includes-cena-can-you-please-send-me-its-cenas-source-code">5.3. I already have a product that includes CENA. Can you please send me its/CENAs source code?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-platforms-does-cena-run-on-does-cena-run-on-rtos-like-freertos-vxworks-cubemx">5.4. What platforms does CENA run on? Does CENA run on RTOS like FreeRTOS, vxWorks, CubeMX?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#does-cena-run-with-c99-c11-can-i-use-c-2011">5.5. Does CENA run with C99/C11? Can I use C++2011?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-much-memory-cpu-storage-does-cena-need">5.6. How much Memory/CPU/Storage does CENA need</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-does-cena-contain-native-in-its-name">5.7. Why does CENA contain “Native” in its name?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-i-export-import-mtps-from-cena-how-does-the-control-engine-relate-other-products-like-mtp-import-export-or-the-mtp-engine">5.8. Can I export/import MTPs from CENA? How does the “Control Engine” relate other products like “MTP Import/Export” or the “MTP Engine”?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../doc.generated/CHANGELOG.html">6. Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">About</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5. </span>Frequently Asked Questions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/00_general/frequent_questions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="frequently-asked-questions">
+<span id="faq"></span><h1><span class="section-number">5. </span>Frequently Asked Questions<a class="headerlink" href="#frequently-asked-questions" title="Link to this heading"></a></h1>
+<section id="what-exactly-is-contained-in-cena-some-core-driver-referenced-in-this-documentation-is-missing-in-my-cena">
+<h2><span class="section-number">5.1. </span>What exactly is contained in CENA? Some core/driver referenced in this documentation is missing in my CENA!<a class="headerlink" href="#what-exactly-is-contained-in-cena-some-core-driver-referenced-in-this-documentation-is-missing-in-my-cena" title="Link to this heading"></a></h2>
+<p>Semodia’s <em>ControlEngine.Native</em> represents a collection of loosely coupled C++ software components that can be
+easily and flexibly combined to facilitate various use cases.</p>
+<p>However, it is important to note that you may only have purchased a subset of all components. In this case, those
+<strong>sources/headers will simply be missing</strong>. Please ignore non-applicable sections in this documentation if that should
+be the case.</p>
+</section>
+<section id="how-much-does-it-cost-what-are-the-license-terms">
+<h2><span class="section-number">5.2. </span>How much does it cost? What are the license terms?<a class="headerlink" href="#how-much-does-it-cost-what-are-the-license-terms" title="Link to this heading"></a></h2>
+<p id="index-0"><em>CENA</em> is a proprietary software development framework created by Semodia GmbH.
+General service conditions for any software Semodia produces can be found <a class="reference external" href="https://semodia.com/conditions/">on our website</a>.</p>
+<p>Cost and usage terms are very much subject to the conditions you or your company negotiated with Semodia GmbH. Generally
+speaking it is safe to assume that:</p>
+<ul class="simple">
+<li><p>You may not make the source code publicly available</p></li>
+<li><p>You may not make CENA available as a binary/library that enables third parties to use CENA</p></li>
+<li><p>Specific terms and conditions apply on how you may distribute products/binaries that contain CENA</p></li>
+</ul>
+<p>Our <a class="reference external" href="mailto::info&#37;&#52;&#48;semodia&#46;com">sales team</a> will gladly answer any questions you may have and sort out any usage restrictions you may have questions on.</p>
+</section>
+<section id="i-already-have-a-product-that-includes-cena-can-you-please-send-me-its-cenas-source-code">
+<h2><span class="section-number">5.3. </span>I already have a product that includes CENA. Can you please send me its/CENAs source code?<a class="headerlink" href="#i-already-have-a-product-that-includes-cena-can-you-please-send-me-its-cenas-source-code" title="Link to this heading"></a></h2>
+<p>The precise terms of what are entitled to are defined in your purchase order. Depending on what you purchased from
+Semodia, you may be entitled to specific binaries/firmware, your project (but not CENA) or CENA as a product.</p>
+<p>Please contact our <a class="reference external" href="mailto::info&#37;&#52;&#48;semodia&#46;com">sales team</a> so we can help you figure out what you are entitled to and
+how we can provide you with what you need.</p>
+<p>Broadly speaking the purchase of software development service from Semodia will <em>not</em> inherently entitle you to ownership
+of any source code, unless this was explicitly included in the offer. If you have purchased the CENA as an SDK, you
+may be entitled to the CENA.</p>
+</section>
+<section id="what-platforms-does-cena-run-on-does-cena-run-on-rtos-like-freertos-vxworks-cubemx">
+<h2><span class="section-number">5.4. </span>What platforms does CENA run on? Does CENA run on RTOS like FreeRTOS, vxWorks, CubeMX?<a class="headerlink" href="#what-platforms-does-cena-run-on-does-cena-run-on-rtos-like-freertos-vxworks-cubemx" title="Link to this heading"></a></h2>
+<p>CENA is a platform agnostic stack. That means that we take great care to avoid using OS specific capabilities when
+implementing the core functionality of our stack.</p>
+<p>That said, we do provide some conveniences for Linux, BSD and Windows (Cygwin) - for example threads or mutexes.
+Our loose-coupling of these allows you to implement such functions however they are best suited to your OS.</p>
+<p>Generally speaking, there are no restrictions for RTOS. Some CENA components may not be available (“ported”) for your
+platform, but we take great care the core functionality is not dependent on RTOS specific features.</p>
+</section>
+<section id="does-cena-run-with-c99-c11-can-i-use-c-2011">
+<h2><span class="section-number">5.5. </span>Does CENA run with C99/C11? Can I use C++2011?<a class="headerlink" href="#does-cena-run-with-c99-c11-can-i-use-c-2011" title="Link to this heading"></a></h2>
+<p>CENA is build on C++2017; you will need a compiler that fully supports C++2017.</p>
+<p>For your reference, anything starting with GCC8 upwards should do the trick :)</p>
+</section>
+<section id="how-much-memory-cpu-storage-does-cena-need">
+<h2><span class="section-number">5.6. </span>How much Memory/CPU/Storage does CENA need<a class="headerlink" href="#how-much-memory-cpu-storage-does-cena-need" title="Link to this heading"></a></h2>
+<p>Since CENA is not an application, but a development framework, this question is hard to answer - you can program
+anything from a complex process module controller with hundreds of variables and functions down to “hello world” type
+applications.</p>
+<p>If you use the MTP or NOA model cores, the size and resource footprint also depends on how you model your application.
+Particularly the OPC UA server with its many string variables <em>can</em> (but does not have to) significantly contribute to
+the memory footprint.</p>
+<p>Please <a class="reference external" href="mailto::info&#37;&#52;&#48;semodia&#46;com">contact us</a> with the specific restrictions of your platform and your usecase and
+we will be happy to consult you.</p>
+</section>
+<section id="why-does-cena-contain-native-in-its-name">
+<h2><span class="section-number">5.7. </span>Why does CENA contain “Native” in its name?<a class="headerlink" href="#why-does-cena-contain-native-in-its-name" title="Link to this heading"></a></h2>
+<p>CENA is the second generation of control engines created at Semodia. Predecessors where based on C# and did not
+support embedded targets very well. The main distinction of CENA is that it creates binary code native to the target
+platform - hence the name.</p>
+</section>
+<section id="can-i-export-import-mtps-from-cena-how-does-the-control-engine-relate-other-products-like-mtp-import-export-or-the-mtp-engine">
+<h2><span class="section-number">5.8. </span>Can I export/import MTPs from CENA? How does the “Control Engine” relate other products like “MTP Import/Export” or the “MTP Engine”?<a class="headerlink" href="#can-i-export-import-mtps-from-cena-how-does-the-control-engine-relate-other-products-like-mtp-import-export-or-the-mtp-engine" title="Link to this heading"></a></h2>
+<p>CENA currently has no import/export support for XML based configuration files built in.</p>
+<p>The term <a class="reference internal" href="glossary.html#term-MTP-Engine"><span class="xref std std-term">MTP Engine</span></a> and <a class="reference internal" href="glossary.html#term-MTP-Import-Export"><span class="xref std std-term">MTP Import/Export</span></a> refer to distinct Semodia products that are not related to CENA.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="feature_list.html" class="btn btn-neutral float-left" title="4. Feature List" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../doc.generated/CHANGELOG.html" class="btn btn-neutral float-right" title="6. Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

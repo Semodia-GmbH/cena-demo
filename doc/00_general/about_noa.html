@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. NAMUR Open Architecture &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Feature List" href="feature_list.html" />
+    <link rel="prev" title="2. Module Type Package" href="about_mtp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">About</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="before_you_start.html">1. Before you start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="about_mtp.html">2. Module Type Package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3. NAMUR Open Architecture</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-noa">3.1. What is NOA?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-does-this-have-to-do-with-cena">3.2. What does this have to do with CENA!?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#is-there-more-to-noa">3.3. Is there more to NOA?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normative-references">3.4. Normative References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="feature_list.html">4. Feature List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frequent_questions.html">5. Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc.generated/CHANGELOG.html">6. Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">About</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3. </span>NAMUR Open Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/00_general/about_noa.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="namur-open-architecture">
+<span id="noa"></span><h1><span class="section-number">3. </span>NAMUR Open Architecture<a class="headerlink" href="#namur-open-architecture" title="Link to this heading"></a></h1>
+<p>So you are supposed to create software that interacts with the NOA… but you are not completely clear on what NOA is?</p>
+<p>This section provides a brief overview.</p>
+<section id="what-is-noa">
+<h2><span class="section-number">3.1. </span>What is NOA?<a class="headerlink" href="#what-is-noa" title="Link to this heading"></a></h2>
+<p id="index-0">NAMUR Open Architecture (NOA) was originally created by the NAMUR (a german association of process industry owners, manufacturers and academia)
+with a focus on making data inside brownfield (existing) plants
+available in edge and cloud applications. Considerable process information is held captive in field devices and has never
+been made available in the control and management levels of the plant - because they where not needed there when
+these older plants where designed and bandwidth was a precious commodity.</p>
+<p>This is where NOA comes in, providing the technological means to make selected data available to the control layer
+in a secure and standardized way, without any adverse effects or invasive changes in the plant.
+In this way, new technologies provide added value of the plant is to be significantly increased. <a class="reference internal" href="#ne175" id="id1"><span>[NE175]</span></a></p>
+<img alt="../_images/namur-noa_logo.jpg" src="../_images/namur-noa_logo.jpg" />
+<p>Figure: <em>NOA Logo as per NE175, depicting the existing “automation pyramid” (CPC) in grey and NOA’s “second channel” (M+O) in purple. [NE175]_</em></p>
+<p>Meanwhile, NOA also addresses greenfield installations, which often include smart field devices designed to interact with
+NOA and cyber-physical systems (“I4.0 outputs”). Modular plants can also rely on NOA when data is exchanged with the cloud
+or optimizations are to be introduced into the plant.</p>
+<p>Added value for the plant operator is created by the processing, preparation and interpretation of the plant data by
+monitoring and optimization applications (M+O applications). Based on existing process information and the competences of
+application partners (e.g. equipment manufacturers), optimization proposals for existing plants are derived.</p>
+<p>The operator’s know-how remains protected to the maximum - because M+O applications only have access to data they need and
+cannot access plant data or individual devices.</p>
+<p>Take a look at <a class="reference external" href="https://semodia.com/en/2021/04/was-ist-eigentlich-noa/">our website on NOA</a> for in depth info,
+a video on NOA and contact information in case you want to know more details on the subject.</p>
+</section>
+<section id="what-does-this-have-to-do-with-cena">
+<h2><span class="section-number">3.2. </span>What does this have to do with CENA!?<a class="headerlink" href="#what-does-this-have-to-do-with-cena" title="Link to this heading"></a></h2>
+<p id="index-1">One fundamental concept of NOA is to “tap into” existing field devices and extract information that is then made available
+via OPC UA using the <em>Process Automation Device Integration Model (PADIM)</em> - an information model curated by the
+<em>FieldCom Group</em>.  <a class="reference internal" href="#ne176" id="id2"><span>[NE176]</span></a></p>
+<p>This is done using a “NOA Security gateway” - an secure embedded device that can communicate with assets in the process
+using their native industrial protocol (HART, CAN, LIN, ProfBus, Modbus RT, …) and serve data via OPC UA to interested
+parties. <a class="reference internal" href="#ne177" id="id3"><span>[NE177]</span></a></p>
+<p>CENA provides the PADIM model core with classes you can use to describe your device, signals and properties in a way
+that can be automatically reflected via OPC UA. All you need to do is instantiate the model and provide a way to read
+copy from your device into the model - let CENA handle the reflection.</p>
+<p>This mechanism is one-way: NOA Security Gatways (colloquially called ‘data diodes’ or ‘noa diodes’) never modify a field
+device. There are actually strict guidelines on how these gateways need to be designed - we suggest you read the
+associated references.</p>
+</section>
+<section id="is-there-more-to-noa">
+<h2><span class="section-number">3.3. </span>Is there more to NOA?<a class="headerlink" href="#is-there-more-to-noa" title="Link to this heading"></a></h2>
+<p>Certainly! Getting data out of the plant was just the first step.</p>
+<p>NOA is a vast subject and includes data processing, creating new information models and re-integrating data back into the plant.</p>
+<p>Take a look at <a class="reference external" href="https://semodia.com/en/2021/04/was-ist-eigentlich-noa/">our website</a> for in depth info,
+a video on MTP and contact information in case you want to know more details on the subject. We also contributed to a nice
+book <a class="reference internal" href="#tau2021" id="id4"><span>[TAU2021]</span></a> that contains NOA in troves.</p>
+</section>
+<section id="normative-references">
+<h2><span class="section-number">3.4. </span>Normative References<a class="headerlink" href="#normative-references" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="ne175" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">NE175</a><span class="fn-bracket">]</span></span>
+<p>NE175, “NAMUR Open Architecture: NOA Konzept”, NAMUR-Interessensgemeinschaft Automatisierungstechnik der Prozessindustrie e.V., 07/2020</p>
+</div>
+<div class="citation" id="ne176" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">NE176</a><span class="fn-bracket">]</span></span>
+<p>NE176, “NAMUR Open Architecture: NOA Informationsmodell”, NAMUR-Interessensgemeinschaft Automatisierungstechnik der Prozessindustrie e.V., 05/2021</p>
+</div>
+<div class="citation" id="ne177" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">NE177</a><span class="fn-bracket">]</span></span>
+<p>NE177, “NAMUR Open Architecture: NOA Security Zonen und NOA Security Gateway”, NAMUR-Interessensgemeinschaft Automatisierungstechnik der Prozessindustrie e.V., 04/2021</p>
+</div>
+<div class="citation" id="tau2021" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">TAU2021</a><span class="fn-bracket">]</span></span>
+<p>Thomas Tauchnitz; “NAMUR Open Architecture (NOA) Das Konzept zur Oeffung der Prozessindustrie”, ATP Praxiswissen, Vulkan Verlag, ISBN 978-3-8356-7451-6, 2021</p>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="about_mtp.html" class="btn btn-neutral float-left" title="2. Module Type Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="feature_list.html" class="btn btn-neutral float-right" title="4. Feature List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

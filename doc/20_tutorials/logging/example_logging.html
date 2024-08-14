@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example: Logging &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CENAs State Machine API" href="../statemachines/index.html" />
+    <link rel="prev" title="Logging" href="logging.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00_general/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mtp_controlengine/index.html">MTP &amp; MTP ControlEngines</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">CENAs Logging Subsystem</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Example: Logging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#available-loggers-and-sinks">Available loggers and sinks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#log-decorators">Log Decorators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-examples">Usage examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../statemachines/index.html">CENAs State Machine API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_tasks.html">Example: Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_util_computedValues.html">Example: Util ComputedValues</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
+          <li class="breadcrumb-item"><a href="index.html">CENAs Logging Subsystem</a></li>
+      <li class="breadcrumb-item active">Example: Logging</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/20_tutorials/logging/example_logging.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-logging">
+<span id="id1"></span><h1>Example: Logging<a class="headerlink" href="#example-logging" title="Link to this heading"></a></h1>
+<p>This example demonstrates the use of slightly more advanced logging facilities in CENA by example.</p>
+<p>The program instantiates various logging mechanisms and uses with no specific purpose.</p>
+<dl class="simple">
+<dt>Logs will be written</dt><dd><ul class="simple">
+<li><p>To disk by using the <cite>RotatingFileSink</cite></p></li>
+<li><p>To the terminal by using the <cite>TerminalOutputSink</cite></p></li>
+</ul>
+</dd>
+</dl>
+<section id="available-loggers-and-sinks">
+<h2>Available loggers and sinks<a class="headerlink" href="#available-loggers-and-sinks" title="Link to this heading"></a></h2>
+<p>We will begin with a brief overview over the 3 big logging classes we will implement in this example.</p>
+<section id="filtering-logger-using-stdout">
+<h3>Filtering logger using stdout<a class="headerlink" href="#filtering-logger-using-stdout" title="Link to this heading"></a></h3>
+<p>Filtering loggers use a severity to indicate what the minimum log level is an then output the log messages
+to the terminals standard output facilities.</p>
+<p>This tends to be the most common logging facility used.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/FilteringMessageLogger.hpp&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="sinked-logger">
+<h3>Sinked Logger<a class="headerlink" href="#sinked-logger" title="Link to this heading"></a></h3>
+<p>Sinked loggers build on the previous FilteringMessageLogger, but instead of using &lt;iostream&gt; and stdout, they
+will direct logmessages to one or more “sinks”. The later define how printing text actually works.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SinkedLoggers can have any number of sinks and they can be added and removed at runtime.</p>
+</div>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/SinkedLogger.hpp&quot;</span>
+</pre></div>
+</div>
+<p>The simplest conceivable sink is of course again the standard output facilities of the terminal. But they might
+also be a UART, a file, etc.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/TerminalOutputSink.hpp&quot;</span>
+</pre></div>
+</div>
+<p>Rotating file sinks Logger use files to output the log messages. They will use multiple files in succession,
+ensuring that logs always use a known fixed size of data on disks.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/RotatingFileSink.hpp&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="log-decorators">
+<h2>Log Decorators<a class="headerlink" href="#log-decorators" title="Link to this heading"></a></h2>
+<p>A recurring use case is having a class that MAY produce logging output in a software, but the use of a logger spamming
+the command line during testing is commonly not desired. Obviously, we want to pass this log to our class using
+dependency injection.</p>
+<p>The <cite>OptionalLoggingDecorator</cite> is an decorator pattern that allows you to turn any class into having an <cite>ILogger</cite>
+interface. Any CENA log facility can be attached to this class. Here’s an example.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/OptionalLoggingDecorator.hpp&quot;</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">cena</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">semodia</span><span class="o">::</span><span class="nn">controlengine</span><span class="o">::</span><span class="nn">native</span><span class="o">::</span><span class="nn">osal</span><span class="o">::</span><span class="nn">logging</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">cena</span><span class="o">::</span><span class="n">OptionalLoggingDecorator</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">MyClass</span><span class="p">()</span>
+<span class="w">    </span><span class="o">:</span><span class="w">   </span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">setLogPrefix</span><span class="p">(</span><span class="s">&quot;MyClass: &quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">MyClass</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Destructor called... bye&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+
+<span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="nf">increment</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Data is now &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">));</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>MyClass now effectively acts as a logger and will add an additional prefix to any log messages it outputs.
+The last line, when printed to a terminal, would read</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">info</span><span class="p">]</span> <span class="n">MyClass</span><span class="p">:</span> <span class="n">Destructor</span> <span class="n">called</span><span class="o">...</span> <span class="n">bye</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="usage-examples">
+<h2>Usage examples<a class="headerlink" href="#usage-examples" title="Link to this heading"></a></h2>
+<p>Let’s see the different logging mechanisms in action.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="p">{</span>
+</pre></div>
+</div>
+<p>To avoid addressing each class with its full namespace, we use a shortcut here.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">cena</span><span class="p">;</span>
+</pre></div>
+</div>
+<section id="simple-logging">
+<h3>Simple logging<a class="headerlink" href="#simple-logging" title="Link to this heading"></a></h3>
+<p>Simple logging is achieved by instantiating a <cite>FilteringMessageLogger</cite> and issuing calls to its logging methods.
+Here we instruct the logger to write a message with the <cite>LogLevel::info</cite> severity. This logger writes only to the terminal.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">FilteringMessageLogger</span><span class="w"> </span><span class="n">log</span><span class="p">;</span>
+<span class="n">log</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="sinked-logging">
+<h3>Sinked Logging<a class="headerlink" href="#sinked-logging" title="Link to this heading"></a></h3>
+<p>When using sinked logging, we can distribute log messages to multiple output channels, each having its own minimum severity.</p>
+<p>First, we create a <cite>SinkedLogger</cite> object and set its minimum severity to <cite>LogLevel::info</cite>.
+This way, this instance does not log any messages having a severity lower than <cite>LogLevel::info</cite>, i.e. messages with a severity of <cite>LogLevel::debug won’t be forwarded at all</cite></p>
+<p>Since we intend to share the logger around in our software by dependency injection, we will make the sink shared.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">SinkedLogger</span><span class="o">&gt;</span><span class="p">(</span><span class="n">LogLevel</span><span class="o">::</span><span class="n">info</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Now we create the sinks and register them in the previously created <cite>SinkedLogger</cite> instance.</p>
+<p>The <cite>TerminalOutputSink</cite> is straight forward as it does no configuration parameters.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">stdoutSink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">TerminalOutputSink</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">logger</span><span class="o">-&gt;</span><span class="n">addSink</span><span class="p">(</span><span class="n">stdoutSink</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;StdOut&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">LogLevel</span><span class="o">::</span><span class="n">debug</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <cite>RotatingFileSink</cite> requires some configuration parameters.
+Here we set the maximum file size per log file to 1024 bytes, the maximum count of log files to 3, and specify, that the log files should be created in the current working directory with the prefix <cite>controlEngine_</cite> and the file ending <cite>.log</cite>.
+As the initialization of this logger might fail due to system I/O errors, we need to check, if the creation was successful. If it wasn’t, we cannot register the sink.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">optFileSink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotatingFileSink</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./controlEngine_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.log&quot;</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">optFileSink</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">addSink</span><span class="p">(</span><span class="o">*</span><span class="n">optFileSink</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RotatingFileSink&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">LogLevel</span><span class="o">::</span><span class="n">warning</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Now we issue a log message to the logger with the <cite>LogLevel::info</cite> severity.
+As we registered the <cite>TerminalOutputSink</cite> with the minimum severity of <cite>LogLevel::debug</cite>, but not the <cite>RotatingFileSink</cite>, this message is only forwarded to the former.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Logger with multiple sinks says hello&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>However, if we send a log message with a severity of <cite>LogLevel::debug</cite>, the log message is filtered at the level of the Logger itself rather than the sinks, and the message is not forwarded to any sink.
+Both registered sinks will write these messages.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;You can&#39;t see me!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Next up, we issue log messages with a severity of <cite>LogLevel::warning</cite>.
+These log messages are forwarded to both logging sinks.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uintmax_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;Hello World &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="decorating-classes-as-loggers">
+<h3>Decorating classes as loggers<a class="headerlink" href="#decorating-classes-as-loggers" title="Link to this heading"></a></h3>
+<p>Let us create a <cite>MyClass</cite>-instance to show how we can now attach a logger, any logger, to the class.
+As a matter of fact, let’s create two instances - one with and one without an attached logger.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">MyClass</span><span class="w"> </span><span class="n">thatWillBeSilent</span><span class="p">;</span>
+<span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">thatWillBeSilent</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+
+<span class="n">MyClass</span><span class="w"> </span><span class="n">thisWillSayGoodbye</span><span class="p">;</span>
+<span class="n">thisWillSayGoodbye</span><span class="p">.</span><span class="n">assignLoggingFacility</span><span class="p">(</span><span class="n">logger</span><span class="p">);</span>
+<span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">thisWillSayGoodbye</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Note that both classes will work just fine… but the instance without logger will not output any messages.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading"></a></h2>
+<p>Here’s the complete source code from this example:</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/FilteringMessageLogger.hpp&quot;</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/SinkedLogger.hpp&quot;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/TerminalOutputSink.hpp&quot;</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/RotatingFileSink.hpp&quot;</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;logging/OptionalLoggingDecorator.hpp&quot;</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="k">namespace</span><span class="w"> </span><span class="nn">cena</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">semodia</span><span class="o">::</span><span class="nn">controlengine</span><span class="o">::</span><span class="nn">native</span><span class="o">::</span><span class="nn">osal</span><span class="o">::</span><span class="nn">logging</span><span class="p">;</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="k">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">cena</span><span class="o">::</span><span class="n">OptionalLoggingDecorator</span>
+<span class="linenos">14</span><span class="p">{</span>
+<span class="linenos">15</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos">16</span><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos">19</span><span class="w">    </span><span class="n">MyClass</span><span class="p">()</span>
+<span class="linenos">20</span><span class="w">    </span><span class="o">:</span><span class="w">   </span><span class="n">data</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="linenos">21</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">22</span><span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">setLogPrefix</span><span class="p">(</span><span class="s">&quot;MyClass: &quot;</span><span class="p">);</span>
+<span class="linenos">23</span><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">24</span><span class="w">    </span><span class="p">};</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="o">~</span><span class="n">MyClass</span><span class="p">()</span>
+<span class="linenos">27</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">28</span><span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Destructor called... bye&quot;</span><span class="p">);</span>
+<span class="linenos">29</span><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos">30</span><span class="w">    </span><span class="p">};</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="w">    </span><span class="k">virtual</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="nf">increment</span><span class="p">()</span>
+<span class="linenos">33</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">34</span><span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="o">++</span><span class="p">;</span>
+<span class="linenos">35</span><span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Data is now &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">));</span>
+<span class="linenos">36</span><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">data</span><span class="p">;</span>
+<span class="linenos">37</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">38</span><span class="p">};</span>
+<span class="linenos">39</span>
+<span class="linenos">40</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">char</span><span class="o">**</span><span class="w"> </span><span class="n">argv</span><span class="p">)</span>
+<span class="linenos">41</span><span class="p">{</span>
+<span class="linenos">42</span><span class="w">    </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">cena</span><span class="p">;</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span><span class="w">    </span><span class="n">FilteringMessageLogger</span><span class="w"> </span><span class="n">log</span><span class="p">;</span>
+<span class="linenos">45</span><span class="w">    </span><span class="n">log</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Hello world&quot;</span><span class="p">);</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">logger</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">SinkedLogger</span><span class="o">&gt;</span><span class="p">(</span><span class="n">LogLevel</span><span class="o">::</span><span class="n">info</span><span class="p">);</span>
+<span class="linenos">48</span>
+<span class="linenos">49</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">stdoutSink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_shared</span><span class="o">&lt;</span><span class="n">TerminalOutputSink</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="linenos">50</span><span class="w">    </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">addSink</span><span class="p">(</span><span class="n">stdoutSink</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;StdOut&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">LogLevel</span><span class="o">::</span><span class="n">debug</span><span class="p">);</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">error_code</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+<span class="linenos">53</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">optFileSink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RotatingFileSink</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">error</span><span class="p">,</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;./controlEngine_&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;.log&quot;</span><span class="p">);</span>
+<span class="linenos">54</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">error</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">optFileSink</span><span class="p">)</span>
+<span class="linenos">55</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">56</span><span class="w">        </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">addSink</span><span class="p">(</span><span class="o">*</span><span class="n">optFileSink</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;RotatingFileSink&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">LogLevel</span><span class="o">::</span><span class="n">warning</span><span class="p">);</span>
+<span class="linenos">57</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">58</span>
+<span class="linenos">59</span><span class="w">    </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Logger with multiple sinks says hello&quot;</span><span class="p">);</span>
+<span class="linenos">60</span>
+<span class="linenos">61</span><span class="w">    </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;You can&#39;t see me!&quot;</span><span class="p">);</span>
+<span class="linenos">62</span>
+<span class="linenos">63</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uintmax_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="linenos">64</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">65</span><span class="w">        </span><span class="n">logger</span><span class="o">-&gt;</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;Hello World &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">to_string</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+<span class="linenos">66</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">67</span>
+<span class="linenos">68</span><span class="w">    </span><span class="n">MyClass</span><span class="w"> </span><span class="n">thatWillBeSilent</span><span class="p">;</span>
+<span class="linenos">69</span><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">thatWillBeSilent</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+<span class="linenos">70</span>
+<span class="linenos">71</span><span class="w">    </span><span class="n">MyClass</span><span class="w"> </span><span class="n">thisWillSayGoodbye</span><span class="p">;</span>
+<span class="linenos">72</span><span class="w">    </span><span class="n">thisWillSayGoodbye</span><span class="p">.</span><span class="n">assignLoggingFacility</span><span class="p">(</span><span class="n">logger</span><span class="p">);</span>
+<span class="linenos">73</span><span class="w">    </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="n">thisWillSayGoodbye</span><span class="p">.</span><span class="n">increment</span><span class="p">();</span>
+<span class="linenos">74</span>
+<span class="linenos">75</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">76</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="logging.html" class="btn btn-neutral float-left" title="Logging" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../statemachines/index.html" class="btn btn-neutral float-right" title="CENAs State Machine API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

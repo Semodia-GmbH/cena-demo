@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logging &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Example: Logging" href="example_logging.html" />
+    <link rel="prev" title="CENAs Logging Subsystem" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00_general/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../mtp_controlengine/index.html">MTP &amp; MTP ControlEngines</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">CENAs Logging Subsystem</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Logging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#logging-sinks">Logging Sinks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sinkedlogger">SinkedLogger</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logmessageformatters">LogMessageFormatters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loglevels-severities">LogLevels (Severities)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="example_logging.html">Example: Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../statemachines/index.html">CENAs State Machine API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_tasks.html">Example: Tasks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../example_util_computedValues.html">Example: Util ComputedValues</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Tutorials</a></li>
+          <li class="breadcrumb-item"><a href="index.html">CENAs Logging Subsystem</a></li>
+      <li class="breadcrumb-item active">Logging</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/20_tutorials/logging/logging.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="logging">
+<h1>Logging<a class="headerlink" href="#logging" title="Link to this heading"></a></h1>
+<p>The logging subsystem in the Control Engine is logically split into two major parts:</p>
+<ul class="simple">
+<li><p>Logging <strong>Sinks</strong> provide capabilities to write logging messages to one output channel/medium
+(e.g. writing to a terminal / writing to a set of log files)</p></li>
+<li><p>Sinked <strong>Loggers</strong> manage a set of sinks and are used to distribute messages to the managed sinks.
+They are also responsible for message filtering based on their severity.</p></li>
+</ul>
+<p class="plantuml">
+<img src="../../_images/plantuml-df2b109d91804fee2efb713d1f8cac6bb0f00125.png" alt="&#64;startuml
+package semodia::controlengine::native::osal::task {
+    class BasicTaskLoopTask {
+        # {abstract} iterate()
+}
+}
+package semodia::controlengine::native::osal::logging {
+ enum LogLevel {
+        none,
+        debug,
+        info,
+        warning,
+        warn,
+        error,
+        fatal,
+        max
+    }
+
+    interface ILogger {
+        + log(logMessage)
+        + log(LogLevel, logMessage)
+        + debug(logMessage)
+        + info(logMessage)
+        + warning(logMessage)
+        + error(logMessage)
+        + fatal(logMessage)
+    }
+
+    abstract class AbstractFilteringMessageLogger implements ILogger {
+        + log(logMessage)
+        + log(LogLevel, logMessage)
+        + debug(logMessage)
+        + info(logMessage)
+        + warning(logMessage)
+        + error(logMessage)
+        + fatal(logMessage)
+
+        + setMinimumLogLevel(LogLevel)
+        + setLock(ILockable)
+
+        # {abstract} displayMessage(logMessage, LogLevel)
+    }
+    AbstractFilteringMessageLogger &quot;*&quot; --&gt; &quot;1&quot; LogLevel : minLogLevel
+
+    interface ILoggingSink extends BasicTaskLoopTask {
+        + writeMessage(LogMessage)
+        + flush()
+        + setLogMessageFormatter(LogMessageFormatter)
+    }
+
+    interface ILoggingSinkManager extends BasicTaskLoopTask {
+        + addSink(ILoggingSink, sinkName, minimumSeverity)
+        + removeSink(sinkName)
+        + setMinimumLogLevel(sinkName, LogLevel)
+    }
+
+    abstract class SinkedLogger extends AbstractFilteringMessageLogger implements ILoggingSinkManager {
+        # displayMessage(logMessage, LogLevel)
+
+        + addSink(ILoggingSink, sinkName, minimumSeverity)
+        + removeSink(sinkName)
+        + setMinimumLogLevel(sinkName, LogLevel)
+
+        # iterate()
+    }
+    SinkedLogger &quot;*&quot; --&gt; &quot;*&quot; ILoggingSink : sinks
+    note left of SinkedLogger::displayMessage
+        for sink : sinks
+            if (minimumSeverity(sink) &lt;= logMessage.getSeverity())
+                sink.writeMessage(LogMessage)
+    end note
+
+    abstract class AbstractLoggingSink implements ILoggingSink {
+        + setLock(ILockable)
+        + setLogMessageFormatter(LogMessageFormatter)
+
+        + writeMessage(LogMessage)
+        + flush()
+
+        # {abstract} doWriteMessage(string)
+        # {abstract} doFlush()
+    }
+    AbstractLoggingSink &quot;*&quot; --&gt; &quot;1&quot; LogMessageFormatter : formatter
+    note left of AbstractLoggingSink::writeMessage(LogMessage)
+        lock.lock()
+        string message = formatter.format(LogMessage)
+        doWriteMessage(message)
+        lock.unlock()
+    end note
+    note left of AbstractLoggingSink::flush()
+        lock.lock()
+        doFlush()
+        lock.unlock()
+    end note
+
+    class RotatingFileSink extends AbstractLoggingSink {
+        + AbstractRotatingFileSink(maxFileSize, maxFileCount, filePrefix, fileExtension)
+        # doWriteMessage(string)
+        # doFlush()
+
+        # iterate()
+    }
+
+    class TerminalOutputSink extends AbstractLoggingSink {
+        # writeImpl(string)
+        # doFlush()
+
+        # iterate()
+    }
+
+    class UartSink extends AbstractLoggingSink {
+        # doWriteMessage(string)
+        # doFlush()
+
+        # iterate()
+    }
+
+    class LogMessage{
+        + std::string getPayload()
+        + LogLevel getSeverity()
+    }
+    LogMessage &quot;*&quot; --&gt; &quot;1&quot; LogLevel : severity
+
+    class LogMessageFormatter {
+        - std::string formatString
+
+        + LogMessageFormatter(FormatString)
+        + string formatLogMessage(LogMessage)
+    }
+}
+&#64;enduml"/>
+</p>
+<section id="logging-sinks">
+<h2>Logging Sinks<a class="headerlink" href="#logging-sinks" title="Link to this heading"></a></h2>
+<p>Logging Sinks are responsible for the actual writing of log messages to a medium / output channel.
+Logging Sink implementations implement the <cite>ILoggingSink</cite> interface:</p>
+<ul class="simple">
+<li><p><cite>writeMessage(message)</cite> - Order a logging message to be written</p></li>
+<li><p><cite>flush()</cite> - Logging sinks may internally use some kind of buffering mechanisms, force the buffers to be flushed to the media.</p></li>
+<li><p><cite>iterate()</cite> - If I/O is slow and you want to make use of asynchronous I/O, it is implemented here. See <a class="reference internal" href="../example_tasks.html#osal-task-framework"><span class="std std-ref">OSAL Task Framework</span></a> for details.</p></li>
+</ul>
+<p>Shared logic (locking for multithreading, formatting log messages) is implemented in an abstract super class <cite>AbstractLoggingSink</cite>.
+If you would like to create a new Logging Sink, simply extend <cite>AbstractLoggingSink</cite> and add your logic for writing, flushing and async I/O operations.</p>
+<section id="currently-available-logging-sinks">
+<h3>Currently available Logging Sinks<a class="headerlink" href="#currently-available-logging-sinks" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><cite>TerminalOutputSink</cite> - Writes log messages to <cite>std::cout</cite></p></li>
+<li><p><cite>RotatingFileLogger</cite> - Writes logs to a rotating set of files - See the Doxygen documentation of the class for details.</p></li>
+</ul>
+</section>
+</section>
+<section id="sinkedlogger">
+<h2>SinkedLogger<a class="headerlink" href="#sinkedlogger" title="Link to this heading"></a></h2>
+<p>The <cite>SinkedLogger</cite> class implements the <cite>ILoggingSink</cite> interface.</p>
+<p>It manages multiple Logging Sinks. Messages sent to a <cite>SinkedLogger</cite> will be distributed to all registered logging sinks.
+Filtering logging messages is achieved in two distinct levels</p>
+<ul class="simple">
+<li><p>Sinked Logger instances have their own minimum severity</p></li>
+<li><p>The Sinked Logger has a minimum severity associated for each Logging Sink it manages</p></li>
+</ul>
+<p>Following this, messages are written (i.e. not filtered) if their severity is equal or higher than both the minimum severity of the logger they are sent to, and the logging sink.
+This way we can easily filter messages based on the output channel, e.g. Display all log messages on a Terminal but only write critical log messages to a log file.</p>
+</section>
+<section id="logmessageformatters">
+<h2>LogMessageFormatters<a class="headerlink" href="#logmessageformatters" title="Link to this heading"></a></h2>
+<p><cite>LogMessageFormatter</cite> instances are used to create writable string representations out of <cite>LogMessage</cite> objects.</p>
+</section>
+<section id="loglevels-severities">
+<h2>LogLevels (Severities)<a class="headerlink" href="#loglevels-severities" title="Link to this heading"></a></h2>
+<p>See the doxygen documentation for available severities.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Severity::none</p>
+<p>Setting the minimum severity of a Logging Sink or a Sinked Logger to <cite>LogLevel::none</cite> will cause filtering to be disabled.</p>
+<p>Messages with a severity of <cite>LogLevel::None</cite> will not be filtered (i.e. always written).</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="CENAs Logging Subsystem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example_logging.html" class="btn btn-neutral float-right" title="Example: Logging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

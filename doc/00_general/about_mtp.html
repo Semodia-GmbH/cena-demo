@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. Module Type Package &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. NAMUR Open Architecture" href="about_noa.html" />
+    <link rel="prev" title="1. Before you start" href="before_you_start.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">About</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="before_you_start.html">1. Before you start</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. Module Type Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#what-is-mtp">2.1. What is “MTP”?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#how-does-the-cena-interact-with-the-mtp">2.2. How does the CENA interact with the MTP?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#what-do-i-need-to-know-about-the-mtp-to-program-a-control-application-using-cena">2.3. What do I need to know about the MTP to program a control application using CENA?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#can-cena-also-be-used-to-design-mtps-how-do-i-do-that">2.4. Can CENA also be used to design MTPs? How do I do that?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normative-references">2.5. Normative References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="about_noa.html">3. NAMUR Open Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="feature_list.html">4. Feature List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="frequent_questions.html">5. Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc.generated/CHANGELOG.html">6. Changelog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="glossary.html">7. Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">About</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>Module Type Package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/00_general/about_mtp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-type-package">
+<span id="mtp"></span><h1><span class="section-number">2. </span>Module Type Package<a class="headerlink" href="#module-type-package" title="Link to this heading"></a></h1>
+<p>So you are supposed to create software that interacts with the MTP… but you are not completely clear on what MTP is?</p>
+<p>This section provides a brief overview.</p>
+<section id="what-is-mtp">
+<h2><span class="section-number">2.1. </span>What is “MTP”?<a class="headerlink" href="#what-is-mtp" title="Link to this heading"></a></h2>
+<p id="index-0">Increasingly shorter product life cycles in the process industry necessitate innovations in plant engineering and
+operation. The modular process engineering reduces engineering overheads significantly reduced, providing better
+reusability and faster time-to-market.</p>
+<p>In this concept, each  Process Equipment Assembly (PEA) (“module”) in a plant provides its
+specific process function that can be easily integrated into any Process Orchestration Layer (POL) (“Control System”).
+For this to work, the POL and the PEA must share a known interface and communication description along with a principal
+knowledge of how a module works and is controlled. This mechanism - called the Module Type Package - was created by
+the VDI/VDE/NAMUR Guideline 2658.</p>
+<img alt="../_images/mtp_logo.png" src="../_images/mtp_logo.png" />
+<p>Figure: <em>MTP Logo, showing some of the included aspects in the spokes. CENA’s runtime perception of the MTP focuses on the “Process Control” aspect.</em></p>
+<p>The MTP is a manufacturer-independent description of the automation of PEAs <a class="reference internal" href="#id8" id="id1"><span>[2658-1]</span></a>, building on XML-like technologies (AutomationML).
+It contains all the information required for integration into a POL - much like a driver file for a new PC peripheral.
+It also describes all variables to be communicated of the OPC UA server of the PEA. <a class="reference internal" href="#id10" id="id2"><span>[2658-3]</span></a></p>
+<p>At the same time, the MTP’s normative documents describes exactly how all MTP “DataAssemblies” (variables, valves, etc) <a class="reference internal" href="#id10" id="id3"><span>[2658-3]</span></a>
+and its services <a class="reference internal" href="#id11" id="id4"><span>[2658-4]</span></a> communicate and interact with the POL and how they react to specific input. The MTP also describes
+the HMI of the PEA (but does not contain any graphics, just the instructions) <a class="reference internal" href="#id9" id="id5"><span>[2658-2]</span></a>.
+Currently the POL will attempt to interact with the PEA over TCP/IP <a class="reference internal" href="#id12" id="id6"><span>[2658-5]</span></a> using the OPC UA communication protocol <a class="reference internal" href="#iec62541" id="id7"><span>[IEC62541]</span></a>.</p>
+<p>That’s where CENA comes into play.</p>
+<p>Take a look at <a class="reference external" href="https://semodia.com/en/2020/06/was-ist-das-eigentlich-dieses-mtp/">our website</a> for in depth info,
+a video on MTP and contact information in case you want to know more details on the subject.</p>
+</section>
+<section id="how-does-the-cena-interact-with-the-mtp">
+<h2><span class="section-number">2.2. </span>How does the CENA interact with the MTP?<a class="headerlink" href="#how-does-the-cena-interact-with-the-mtp" title="Link to this heading"></a></h2>
+<p>The CENA software framework designed to enable rapid development and deployment of control applications on PEA controllers.</p>
+<p>To this extent, the CENA contains all MTP relevant classes along with high-level functions that allow you - the developer -
+to quickly implement fully MTP conformant PEAs that can interact with any MTP conforming POL. CENA also provides the
+required OPC UA framework and the mechanism for OPC UA to interact with your MTP model…</p>
+<p>With CENA, all that is left to do is to tie up hardware-level interaction with service callbacks, i.e. describe what
+the PEA should do when services run or valves open/close.</p>
+</section>
+<section id="what-do-i-need-to-know-about-the-mtp-to-program-a-control-application-using-cena">
+<h2><span class="section-number">2.3. </span>What do I need to know about the MTP to program a control application using CENA?<a class="headerlink" href="#what-do-i-need-to-know-about-the-mtp-to-program-a-control-application-using-cena" title="Link to this heading"></a></h2>
+<p>From your perspective, an MTP has <em>services</em> and <em>data assemblies</em></p>
+<ul>
+<li><p>Data assemblies are</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>variable contents like strings, analog, digital or integer variables; these can be read or written to either by the
+POL or the PEA like normal variables.</p></li>
+<li><p>valves or drives (active elements), which are controlled by either the PEA or the POL. You will need to describe
+how “open”, “close”, “forward” and “stop” work, while CENA will take care of invoking your functions as required.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Services represent something the module can do - e.g. “mix liquids”</p>
+<blockquote>
+<div><ul>
+<li><p>Services can be offline/inactive or online/active and be controlled by either</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>an operator or local control panel or</p></li>
+<li><p>a control system (“external” control) or</p></li>
+<li><p>the PEA itself (“internal” control).</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Services are state based. They are initially “IDLE”, the get started, stopped, aborted, paused or held by the POL
+as required by the production process. You will need to describe what happens in any of these states.</p></li>
+<li><p>Services are composed of procedures - alternatives on how to accomplish the service’s intent. Examples would be
+“slow mixing”, “fast mixing” or “cold mixing”. They all implement the states differently, but generally accomplish
+the same result with the same assets. Only one procedure can be selected/active within a single service at any point in time.</p></li>
+<li><p>Both services and procedures may contain parameters - which are data assemblies.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>CENA really takes care of all the business logic inside all these components. Your job is to compose them into a
+control application and tie in the appropriate drivers.</p>
+<p>There is a <a class="reference internal" href="../20_tutorials/mtp_controlengine/mtp_model_elements.html#mtp-elements-usage"><span class="std std-ref">section in the developer documentation</span></a> that goes into a bit more detail of the MTP use in CENA.</p>
+</section>
+<section id="can-cena-also-be-used-to-design-mtps-how-do-i-do-that">
+<h2><span class="section-number">2.4. </span>Can CENA also be used to design MTPs? How do I do that?<a class="headerlink" href="#can-cena-also-be-used-to-design-mtps-how-do-i-do-that" title="Link to this heading"></a></h2>
+<p>Please take a look at the very same question in the <a class="reference internal" href="frequent_questions.html#faq"><span class="std std-ref">Frequently Asked Questions</span></a>.</p>
+</section>
+<section id="normative-references">
+<h2><span class="section-number">2.5. </span>Normative References<a class="headerlink" href="#normative-references" title="Link to this heading"></a></h2>
+<div role="list" class="citation-list">
+<div class="citation" id="id8" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">2658-1</a><span class="fn-bracket">]</span></span>
+<p>VDI/VDE/NAMUR 2658-1; “Automation engineering of modular system in the process industry: General concept and interfaces”, Beuth Verlag, draft version, 01/2022</p>
+</div>
+<div class="citation" id="id9" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">2658-2</a><span class="fn-bracket">]</span></span>
+<p>VDI/VDE/NAMUR 2658-2; “Automation engineering of modular system in the process industry: Modelling of human-machine-interfaces”, Beuth Verlag, 11/2019</p>
+</div>
+<div class="citation" id="id10" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2658-3<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>VDI/VDE/NAMUR 2658-3; “Automation engineering of modular system in the process industry: Library for data objects”, Beuth Verlag, 03/2019</p>
+</div>
+<div class="citation" id="id11" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2658-4</a><span class="fn-bracket">]</span></span>
+<p>VDI/VDE/NAMUR 2658-4; “Automation engineering of modular system in the process industry: Services”, Beuth Verlag, 2022</p>
+</div>
+<div class="citation" id="id12" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">2658-5</a><span class="fn-bracket">]</span></span>
+<p>VDI/VDE/NAMUR 2658-5; “Automation engineering of modular systems in the process Industry - Runtime and communication aspects”, Beuth Verlag, draft version, 2021</p>
+</div>
+<div class="citation" id="iec62541" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">IEC62541</a><span class="fn-bracket">]</span></span>
+<p>IEC TC 65/SC 65E; “IEC TR 62541-1:2020 OPC Unified Architecture - Part 1: Overview and concepts”, IEC, 11/2020</p>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="before_you_start.html" class="btn btn-neutral float-left" title="1. Before you start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="about_noa.html" class="btn btn-neutral float-right" title="3. NAMUR Open Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

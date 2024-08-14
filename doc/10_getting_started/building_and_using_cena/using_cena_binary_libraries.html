@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1.1. Using the CENA binary libraries in a separate project &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="1.2. Creating statically linked binaries" href="static_linking.html" />
+    <link rel="prev" title="1. Building and using CENA" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00_general/index.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Getting Started</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">1. Building and using CENA</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">1.1. Using the CENA binary libraries in a separate project</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prerequisites">1.1.1. Prerequisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#quickstart">1.1.2. Quickstart</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage">1.1.3. Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="static_linking.html">1.2. Creating statically linked binaries</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../architecture_overview.html">2. NOA and MTP Control Engines</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Getting Started</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">1. </span>Building and using CENA</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">1.1. </span>Using the CENA binary libraries in a separate project</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/10_getting_started/building_and_using_cena/using_cena_binary_libraries.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="using-the-cena-binary-libraries-in-a-separate-project">
+<span id="using-cena-binary-libs"></span><h1><span class="section-number">1.1. </span>Using the CENA binary libraries in a separate project<a class="headerlink" href="#using-the-cena-binary-libraries-in-a-separate-project" title="Link to this heading"></a></h1>
+<section id="prerequisites">
+<h2><span class="section-number">1.1.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>In order to build your custom application using the CENA libraries, you need</p>
+<ul class="simple">
+<li><p>CMake 3.16 or higher</p></li>
+<li><p>A C Compiler supporting C99 or newer</p></li>
+<li><p>A C++ Compiler supporting C++17 or newer</p></li>
+</ul>
+<section id="gnu-linux">
+<h3><span class="section-number">1.1.1.1. </span>GNU/Linux<a class="headerlink" href="#gnu-linux" title="Link to this heading"></a></h3>
+<p>On Linux hosts, everything should work out of the box, if you have installed a recent version of GCC and CMake via your system’s package manager.</p>
+</section>
+<section id="microsoft-windows">
+<h3><span class="section-number">1.1.1.2. </span>Microsoft Windows<a class="headerlink" href="#microsoft-windows" title="Link to this heading"></a></h3>
+<p>For Windows builds, only the <a class="reference external" href="https://www.cygwin.com/">Cygwin</a> based toolchain is currently tested and evaluated.</p>
+<p>Please make sure you have set up a working Cygwin environment before continuing.</p>
+<p>You will require at least the following packages installed via the cygwin installer:</p>
+<ul class="simple">
+<li><p>gdb, gcc, g++</p></li>
+<li><p>cmake</p></li>
+<li><p>make</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Execute all commands from within the Cygwin terminal.</p>
+</div>
+</section>
+</section>
+<section id="quickstart">
+<span id="using-cena-binary-libs-quickstart"></span><h2><span class="section-number">1.1.2. </span>Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h2>
+<p>Inside the CENA binary distribution, you should have received a <cite>src</cite> folder that contains some example implementations that make use of the CENA libraries.
+Along with the actual implementation (the .cpp files) there is a <a class="reference external" href="https://cmake.org/">CMake</a> project file - <cite>CMakeLists.txt</cite></p>
+<p>Perform the following commands to build the examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>cd ${PATH_TO_THE_CENA_DISTRIBUTION}/usr/local/src/example_usage/
+mkdir build &amp;&amp; cd build
+cmake ..
+make
+</pre></div>
+</div>
+<p>You now have built your first applications with the CENA as a library!
+The generated programs are placed in the build folder: <cite>example_mtp_controlengine</cite> and <cite>example_logging</cite>.</p>
+</section>
+<section id="usage">
+<h2><span class="section-number">1.1.3. </span>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>The CENA itself is written in C++17 compatible code. Included dependencies however may be written in older C++ versions or C.</p>
+<p>The build system of the CENA itself is CMake.
+For integration in other projects, we highly suggest the usage of the supplied CMake config files.
+The config files define custom CMake targets for the CENA libraries. A CMake target in this case is a library that other projects can link to.
+For each defined target, the config files will automatically add linker flags and compiler flags that are required upon compilation.
+You can find the config files in the CENA binary distribution in <cite>usr/local/lib/cmake</cite>.</p>
+<section id="writing-your-own-cmakelists-txt-cmake-project-definition">
+<h3><span class="section-number">1.1.3.1. </span>Writing your own CMakeLists.txt CMake project definition<a class="headerlink" href="#writing-your-own-cmakelists-txt-cmake-project-definition" title="Link to this heading"></a></h3>
+<p>To setup a new project using the CENA, certain tasks are required in the CMake project.
+We will discuss them in detail now.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>All following necessities are included in the example CMake project used in the <a class="reference internal" href="#using-cena-binary-libs-quickstart"><span class="std std-ref">Quickstart</span></a> section.</p>
+</div>
+<p>In its current configuration, the CENA will require information about the environment it is compiled for:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>string(TOUPPER TARGET_${CMAKE_CXX_PLATFORM_ID} SEMODIA_CXX_PLATFORM)
+string(TOUPPER TARGET_${CMAKE_CXX_PLATFORM_ID} SEMODIA_C_PLATFORM)
+add_definitions(-D${SEMODIA_CXX_PLATFORM} -D${SEMODIA_C_PLATFORM})
+</pre></div>
+</div>
+<p>When using the CENA in your project, you will need to inform CMake about the location of the config files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>set(CMAKE_PREFIX_PATH ${PATH_TO_THE_CENA_DISTRIBUTION}/usr/local/lib/cmake/)
+</pre></div>
+</div>
+<p>Afterwards, instruct CMake to include the CENA via the configuration contained in the folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">find_package</span><span class="p">(</span><span class="n">semodia_controlengine</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now you need to define your own targets. These might either be libraries or executable targets.
+Let’s assume you want to create a new application, i.e. a CMake executable target.
+All you have to do is to define a new target and instruct CMake, which source files are included:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">add_executable</span><span class="p">(</span><span class="n">your_application_name</span> <span class="n">your_source_1</span><span class="o">.</span><span class="n">cpp</span> <span class="n">your_source_2</span><span class="o">.</span><span class="n">cpp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And that’s it. Now you can link directly to CENA’s libraries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">target_link_libraries</span><span class="p">(</span><span class="n">your_application_name</span> <span class="n">PUBLIC</span> <span class="n">semodia_controlengine</span><span class="p">::</span><span class="n">controlengine_packed_static</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As the CENA includes C++17 features in its headers, you will need to enable C++17 support for your compiler.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">set_target_properties</span><span class="p">(</span><span class="n">your_application_name</span> <span class="n">PROPERTIES</span> <span class="n">CXX_STANDARD</span> <span class="mi">17</span> <span class="n">CMAKE_CXX_STANDARD_REQUIRED</span> <span class="n">ON</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="using-the-cena-without-cmake">
+<h3><span class="section-number">1.1.3.2. </span>Using the CENA without CMake<a class="headerlink" href="#using-the-cena-without-cmake" title="Link to this heading"></a></h3>
+<p>For now, there is not support for other build systems beside CMake.
+If you wish, you can always link to the library files directly and add include directories by hand.</p>
+</section>
+<section id="ide-support">
+<h3><span class="section-number">1.1.3.3. </span>IDE Support<a class="headerlink" href="#ide-support" title="Link to this heading"></a></h3>
+<p>The usage of a CMake capable IDE is highly advised.
+For example, <a class="reference external" href="https://www.jetbrains.com/clion/">Jetbrains Clion</a> can import CMake projects natively.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="1. Building and using CENA" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="static_linking.html" class="btn btn-neutral float-right" title="1.2. Creating statically linked binaries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

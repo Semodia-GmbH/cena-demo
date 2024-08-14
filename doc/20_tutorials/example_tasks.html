@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example: Tasks &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Example: Util ComputedValues" href="example_util_computedValues.html" />
+    <link rel="prev" title="Example: Statemachines" href="statemachines/example_statemachines.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../00_general/index.html">About</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="mtp_controlengine/index.html">MTP &amp; MTP ControlEngines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logging/index.html">CENAs Logging Subsystem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="statemachines/index.html">CENAs State Machine API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example: Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#osal-task-framework">OSAL Task Framework</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#task-interface">Task Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#task-types">Task types</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example-usage">Example usage</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#source-code">Source Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example_util_computedValues.html">Example: Util ComputedValues</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Example: Tasks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/20_tutorials/example_tasks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="example-tasks">
+<span id="id1"></span><h1>Example: Tasks<a class="headerlink" href="#example-tasks" title="Link to this heading"></a></h1>
+<p>Demonstrates the use of the task subsystem for the creation of asynchronously executed jobs</p>
+<section id="osal-task-framework">
+<span id="id2"></span><h2>OSAL Task Framework<a class="headerlink" href="#osal-task-framework" title="Link to this heading"></a></h2>
+<p>The controlengine offers the Task framework to handle the execution of tasks.
+A task is a repetitive job that can be performed in parallel to other tasks. For non-threaded platforms,
+these are implemented akin to a task loop, while threaded platforms can use threading for preemptive task switching.</p>
+<section id="task-interface">
+<h3>Task Interface<a class="headerlink" href="#task-interface" title="Link to this heading"></a></h3>
+<p>A task is always described by its interface ITask:</p>
+<p class="plantuml">
+<img src="../_images/plantuml-b22f9ddb3619c29715d8fbf32cc986ff86e1789e.png" alt="&#64;startuml
+interface ITask {
+    #preStart()
+    #start()
+    #postStart()
+
+    #iterate()
+
+    #preStop()
+    #stop()
+    #postStop()
+
+    +doStart()
+    +doRun()
+    +doTerminate()
+
+    +getTaskState() : TaskState
+}
+&#64;enduml"/>
+</p>
+<p>These functions are meant to be “populated” as follows:</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITaskE">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITaskE"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITaskE"></span><span id="semodia::controlengine::native::osal::tasking::ITask"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ITask</span></span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITaskE" title="Link to this definition"></a><br /></dt>
+<dd><p>Interface class describing a task that can be started, run and stopped. Implementations may include both threaded task models and iterated task loops. </p>
+<p>Subclassed by semodia::controlengine::native::osal::tasking::BasicTaskLoopTask, semodia::controlengine::native::osal::tasking::ThreadedTaskDecorator, semodia::controlengine::native::osal::tasking::ThreadedTaskDecorator</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask7doStartEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask7doStartEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask7doStartEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::doStart"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1ad52c384f0bde35103eb28ccf200991d5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">doStart</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask7doStartEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Handles initializing a task using (pre/post)-<a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1adb1b83d4b131e8c72ab024da1404bc54"><span class="std std-ref">start()</span></a>. May set run=true for doRun. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5doRunEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask5doRunEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask5doRunEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::doRun"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1aaef6444b092e4c2679d30c3f4fa50ba1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">doRun</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5doRunEv" title="Link to this definition"></a><br /></dt>
+<dd><p>If the task is running, this will handle how/when <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a96415f25fff6305c4d74b639fe373210"><span class="std std-ref">iterate()</span></a> is invoked. Note that this function should not change bool run on its own (see doStart and doTerminate). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask11doTerminateEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask11doTerminateEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask11doTerminateEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::doTerminate"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1af91702ce2fd7f223288bc06d8e8e0b28"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">doTerminate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask11doTerminateEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Waits for the task to stop running and calls (pre/post)-<a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a614c2978a8913ca5957351978a3f8043"><span class="std std-ref">stop()</span></a>. Sets run=false and waits for run-loop or doRun to exit. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask12getTaskStateEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask12getTaskStateEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask12getTaskStateEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::getTaskState"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a05619d86d8827f963088f49cf5328fe1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">TaskState</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getTaskState</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask12getTaskStateEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if doRun and not amRunning; default implementation is not thread-safe. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask12setTaskStateEK9TaskState">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask12setTaskStateEK9TaskState"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask12setTaskStateEK9TaskState"></span><span id="semodia::controlengine::native::osal::tasking::ITask::setTaskState__TaskStateC"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a25284b3b39f144ed36dab14af28752da"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setTaskState</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">TaskState</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">newState</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask12setTaskStateEK9TaskState" title="Link to this definition"></a><br /></dt>
+<dd><p>Update the internal state of this task; default implementation is not thread-safe. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newState</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask8preStartEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask8preStartEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask8preStartEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::preStart"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a70dbb28a5e3f074cd0c67c57dd201b84"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">preStart</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask8preStartEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Called before <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1adb1b83d4b131e8c72ab024da1404bc54"><span class="std std-ref">start()</span></a> is called by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1ad52c384f0bde35103eb28ccf200991d5"><span class="std std-ref">doStart()</span></a> or run is set. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5startEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask5startEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask5startEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::start"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1adb1b83d4b131e8c72ab024da1404bc54"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5startEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Describes the startup logic of a task. Called by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1ad52c384f0bde35103eb28ccf200991d5"><span class="std std-ref">doStart()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask9postStartEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask9postStartEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask9postStartEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::postStart"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1aa40edc597dad59b0d2fddd715749a9e4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">postStart</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask9postStartEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Describes how a task is initialized before <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1adb1b83d4b131e8c72ab024da1404bc54"><span class="std std-ref">start()</span></a> is called. Called by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1ad52c384f0bde35103eb28ccf200991d5"><span class="std std-ref">doStart()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask7iterateEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask7iterateEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask7iterateEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::iterate"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a96415f25fff6305c4d74b639fe373210"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iterate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask7iterateEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute the business logic exactly once. Can be called either directly by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1aaef6444b092e4c2679d30c3f4fa50ba1"><span class="std std-ref">doRun()</span></a> or by thread if the OS supports it. <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a96415f25fff6305c4d74b639fe373210"><span class="std std-ref">iterate()</span></a> must exit/return if run==false. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask7preStopEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask7preStopEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask7preStopEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::preStop"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1aaebd15a51189ebdb385573d2f6c46545"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">preStop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask7preStopEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Actions performed prior to <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a614c2978a8913ca5957351978a3f8043"><span class="std std-ref">stop()</span></a>. Called by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1af91702ce2fd7f223288bc06d8e8e0b28"><span class="std std-ref">doTerminate()</span></a> before run=false is set. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask4stopEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask4stopEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask4stopEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::stop"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a614c2978a8913ca5957351978a3f8043"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">stop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask4stopEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Actions performed to stop the task. Called by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1af91702ce2fd7f223288bc06d8e8e0b28"><span class="std std-ref">doTerminate()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask8postStopEv">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask8postStopEv"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask8postStopEv"></span><span id="semodia::controlengine::native::osal::tasking::ITask::postStop"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1aef954d6c573e837387273dfe0ea74a9f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">postStop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask8postStopEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Actions performed once after the task is stopped. Called by <a class="reference internal" href="#classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1af91702ce2fd7f223288bc06d8e8e0b28"><span class="std std-ref">doTerminate()</span></a>. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-attributes">Protected Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5stateE">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask5stateE"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask5stateE"></span><span id="semodia::controlengine::native::osal::tasking::ITask::state__TaskState"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1af691987e7a644d7a764a181a114f4242"></span><span class="n"><span class="pre">TaskState</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">state</span></span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5stateE" title="Link to this definition"></a><br /></dt>
+<dd><p>The task state; can be publicy read but only settable privately. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask3runE">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask3runE"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask3runE"></span><span id="semodia::controlengine::native::osal::tasking::ITask::run__b"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1a897e5a63f80bb5fbe9b89d5bb7277268"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">run</span></span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask3runE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set ‘true’ to instruct the (possibly threaded) task to keep running. A threaded main loop should terminate if this becomes false. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-private-functions">Private Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5ITaskERK5ITask">
+<span id="_CPPv3N7semodia13controlengine6native4osal7tasking5ITask5ITaskERK5ITask"></span><span id="_CPPv2N7semodia13controlengine6native4osal7tasking5ITask5ITaskERK5ITask"></span><span id="semodia::controlengine::native::osal::tasking::ITask::ITask__ITaskCR"></span><span class="target" id="classsemodia_1_1controlengine_1_1native_1_1osal_1_1tasking_1_1ITask_1ab553f895f5c109f261e56ddcd6e55d92"></span><span class="sig-name descname"><span class="n"><span class="pre">ITask</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5ITaskERK5ITask" title="semodia::controlengine::native::osal::tasking::ITask::ITask"><span class="n"><span class="pre">ITask</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N7semodia13controlengine6native4osal7tasking5ITask5ITaskERK5ITask" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy constructor is deleted; a task can not be copied, as that would imply that the task including its internal state can be trivially copied as well. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<p>A simple implementation is the <cite>BasicTaskLoopTask</cite>, designed to be run as a task loop by repeatedly calling doRun().</p>
+</section>
+<section id="task-types">
+<h3>Task types<a class="headerlink" href="#task-types" title="Link to this heading"></a></h3>
+<p>Based on the above interface, CENA provides some very rudimentary task types.</p>
+<ul class="simple">
+<li><p><strong>`BasicTaskLoopTasks`</strong> implement placeholders everything except iterate(). This task type allows quickly creating
+new task classes for task loops.</p></li>
+<li><p><strong>`FrequencyLimitedTaskLoopTask`</strong> works exactly like <cite>BasicTaskLoopTasks</cite>, but adds a time gate condition to <cite>iterate()</cite>.
+<cite>doStart()</cite> can be called repeatedly from a main loop or thread, but the task will internally invoke <cite>iterate()</cite>
+every x milliseconds. This is perfect for reducing the tick rates of state machines or lowering file I/O operation
+loads in drivers.</p></li>
+</ul>
+</section>
+<section id="example-usage">
+<h3>Example usage<a class="headerlink" href="#example-usage" title="Link to this heading"></a></h3>
+<p>The following code demonstrates the usage of the tasks framework on a simple example.
+We create 2 BasicTaskLoop instances which increase an internal counter and write it to the terminal on each invocation.
+If threading is supported, we use the ThreadedTaskDecorator to execute the tasks in parallel.</p>
+<p>First, we include the required system headers for signal handling and waiting.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="p">}</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;csignal&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+</pre></div>
+</div>
+<p>Now we can include required headers for tasks running without any threading.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tasking/BasicTaskLoopTask.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;locking/ILockable.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;locking/Lock.hpp&quot;</span>
+</pre></div>
+</div>
+<p>And finally the header files for threaded task execution, if threaded usage is enabled.</p>
+<p>Feel free to comment following define statement to disable the usage of threading in this example.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#define USE_THREADS</span>
+</pre></div>
+</div>
+<p>Threads can decorate CENA Tasks by acting as a proxy pattern. The <cite>ThreadedTaskDecorator</cite> accepts a single task
+as “content” and then proxies the public interface functions.
+When <cite>doStart()</cite> is called and the thread will then continuously invoke <cite>doStart()</cite>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Processor load when wrapping tasks</p>
+<p>The cont. call to <cite>doStart()</cite> by the thread will create high processor loads in the current implementation.</p>
+</div>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef USE_THREADS</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tasking/ThreadedTaskDecorator.hpp&quot;</span>
+<span class="cp">#endif</span>
+
+<span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">semodia</span><span class="o">::</span><span class="nn">controlengine</span><span class="o">::</span><span class="nn">native</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>We introduce a global variable which listens on user provided signals (SIGINT / SIGABORT) to end the main loop.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="n">mainLoopDoRun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">signalHandler</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">signal</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">mainLoopDoRun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The ExampleTask class encapsulates the desired behaviour for our repetitively executed job.
+We inherit from the according base class (BasicTaskLoopTask) and add our own custom behaviour.
+In this example we write an incrementing number to the command line on each execution of the task.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ExampleTaskA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">BasicTaskLoopTask</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">counter</span><span class="p">;</span>
+
+<span class="k">protected</span><span class="o">:</span>
+</pre></div>
+</div>
+<p>We don’t have to override <cite>start()</cite> and <cite>stop()</cite>, but in this case we want a task to always start at 1 when it
+is (re-)start it.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The iterate() function is invoked upon each task execution and therefore should contain the business logic.
+This function must exit and <strong>may not block execution</strong>.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">iterate</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A: Task Invocation: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="o">++</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This output will occur every time <cite>doStart()</cite> is called.</p>
+<p>This will spam our terminal. To mitigate this problem, we will do something very bad: sleep/block in iterate.
+We will see how to ‘cleanly’ mitigate situations like this with <cite>ExampleTaskB</cite>.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">usleep</span><span class="p">(</span><span class="mi">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">500</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">ExampleTaskA</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">ILockable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">BasicTaskLoopTask</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lock</span><span class="p">))</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>A second Task is introduced to demonstrate the behaviour of multiple concurrent tasks inside an application.
+This task behaves like the example task above, but instead of numbers, this task increments letters beginning
+from ‘a’ up to ‘z’ and repeats.</p>
+<p>To improve on our <cite>ExampleTaskA</cite>, we will use the <cite>FrequencyLimitedTaskLoopTask</cite>, allowing us to omit the
+rather unwieldy call to <cite>usleep()</cite> in <cite>iterate()</cite>. This makes our task non-blocking in both threaded and non-threaded
+applications, while yielding the same result as <cite>ExampleTaskA</cite>.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tasking/FrequencyLimitedTaskLoopTask.hpp&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;timing/BasicTimer.hpp&quot;</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ExampleTaskB</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">FrequencyLimitedTaskLoopTask</span>
+<span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">counter</span><span class="p">;</span>
+
+<span class="k">protected</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">iterate</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;B: Task Invocation: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">++</span><span class="n">counter</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="n">ExampleTaskB</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">ILockable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">)</span>
+<span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">FrequencyLimitedTaskLoopTask</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lock</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">timing</span><span class="o">::</span><span class="n">BasicTimer</span><span class="o">&gt;</span><span class="p">())</span>
+<span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">setTickCountBetweenIterations</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">getTimerTicksPerSecond</span><span class="p">());</span><span class="w"> </span><span class="c1">// &gt;1s between calls to iterate()</span>
+<span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="w">    </span><span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Finally, everything is merged in the main function.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+</pre></div>
+</div>
+<p>Register the signal handlers</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">signalHandler</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span><span class="w"> </span><span class="n">signalHandler</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Instantiate the tasks and their internal locks</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ExampleTaskA</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">Lock</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ExampleTaskB</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">Lock</span><span class="o">&gt;</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>If threading is enabled, we can now apply the decorator for the BasicTaskLoopTask objects that makes use of OS
+supplied threads for the execution of the tasks. All calls to the BasicTaskLoopTask objects are from now on
+directed at the ThreadedTaskDecorator.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef USE_THREADS</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskAThread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">ThreadedTaskDecorator</span><span class="p">(</span><span class="o">*</span><span class="n">exampleTaskA</span><span class="p">);</span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskBThread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">ThreadedTaskDecorator</span><span class="p">(</span><span class="o">*</span><span class="n">exampleTaskB</span><span class="p">);</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+<p>The tasks have to be started.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef USE_THREADS</span>
+<span class="w">    </span><span class="n">exampleTaskAThread</span><span class="p">.</span><span class="n">doStart</span><span class="p">();</span>
+<span class="w">    </span><span class="n">exampleTaskBThread</span><span class="p">.</span><span class="n">doStart</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>When using threaded task execution, doRun() has to be called exactly once to start the task.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">exampleTaskAThread</span><span class="p">.</span><span class="n">doRun</span><span class="p">();</span>
+<span class="w">    </span><span class="n">exampleTaskBThread</span><span class="p">.</span><span class="n">doRun</span><span class="p">();</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="n">exampleTaskA</span><span class="o">-&gt;</span><span class="n">doStart</span><span class="p">();</span>
+<span class="w">    </span><span class="n">exampleTaskB</span><span class="o">-&gt;</span><span class="n">doStart</span><span class="p">();</span>
+<span class="cp">#endif</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">mainLoopDoRun</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="cp">#ifdef USE_THREADS</span>
+</pre></div>
+</div>
+<p>There is nothing to do here, execution is taken care of by the threads.</p>
+<p>However, in this example we later introduce an additional sleep to mitigate busy waiting of the main thread and
+compiler optimizations, which might remove the main loop in the main thread and thus terminate the complete program.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="cp">#else</span>
+</pre></div>
+</div>
+<p>When we don’t use threading, each task has to be called periodically.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="w">        </span><span class="n">exampleTaskA</span><span class="o">-&gt;</span><span class="n">doRun</span><span class="p">();</span>
+<span class="w">        </span><span class="n">exampleTaskB</span><span class="o">-&gt;</span><span class="n">doRun</span><span class="p">();</span>
+<span class="cp">#endif</span>
+<span class="w">    </span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Finally, the tasks are terminated.</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#ifdef USE_THREADS</span>
+<span class="w">    </span><span class="n">exampleTaskAThread</span><span class="p">.</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="w">    </span><span class="n">exampleTaskBThread</span><span class="p">.</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="n">exampleTaskA</span><span class="o">-&gt;</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="w">    </span><span class="n">exampleTaskB</span><span class="o">-&gt;</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="cp">#endif</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="source-code">
+<h2>Source Code<a class="headerlink" href="#source-code" title="Link to this heading"></a></h2>
+<p>Here’s the complete source code from this example:</p>
+<div class="highlight-C++ notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span>
+<span class="linenos">  2</span><span class="p">{</span>
+<span class="linenos">  3</span><span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="linenos">  4</span><span class="p">}</span>
+<span class="linenos">  5</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;csignal&gt;</span>
+<span class="linenos">  6</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="linenos">  7</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;memory&gt;</span>
+<span class="linenos">  8</span>
+<span class="linenos">  9</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tasking/BasicTaskLoopTask.hpp&quot;</span>
+<span class="linenos"> 10</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;locking/ILockable.hpp&quot;</span>
+<span class="linenos"> 11</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;locking/Lock.hpp&quot;</span>
+<span class="linenos"> 12</span>
+<span class="linenos"> 13</span><span class="cp">#define USE_THREADS</span>
+<span class="linenos"> 14</span>
+<span class="linenos"> 15</span><span class="cp">#ifdef USE_THREADS</span>
+<span class="linenos"> 16</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tasking/ThreadedTaskDecorator.hpp&quot;</span>
+<span class="linenos"> 17</span><span class="cp">#endif</span>
+<span class="linenos"> 18</span>
+<span class="linenos"> 19</span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">semodia</span><span class="o">::</span><span class="nn">controlengine</span><span class="o">::</span><span class="nn">native</span><span class="p">;</span>
+<span class="linenos"> 20</span>
+<span class="linenos"> 21</span><span class="kt">bool</span><span class="w"> </span><span class="n">mainLoopDoRun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="linenos"> 22</span>
+<span class="linenos"> 23</span><span class="kt">void</span><span class="w"> </span><span class="nf">signalHandler</span><span class="p">([[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">signal</span><span class="p">)</span>
+<span class="linenos"> 24</span><span class="p">{</span>
+<span class="linenos"> 25</span><span class="w">    </span><span class="n">mainLoopDoRun</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span>
+<span class="linenos"> 26</span><span class="p">}</span>
+<span class="linenos"> 27</span>
+<span class="linenos"> 28</span><span class="k">class</span><span class="w"> </span><span class="nc">ExampleTaskA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">BasicTaskLoopTask</span>
+<span class="linenos"> 29</span><span class="p">{</span>
+<span class="linenos"> 30</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos"> 31</span><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">counter</span><span class="p">;</span>
+<span class="linenos"> 32</span>
+<span class="linenos"> 33</span><span class="k">protected</span><span class="o">:</span>
+<span class="linenos"> 34</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">start</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="linenos"> 35</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 36</span><span class="w">        </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="linenos"> 37</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 38</span>
+<span class="linenos"> 39</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">iterate</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="linenos"> 40</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 41</span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;A: Task Invocation: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="o">++</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos"> 42</span><span class="w">        </span><span class="n">usleep</span><span class="p">(</span><span class="mi">1000</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">500</span><span class="p">);</span>
+<span class="linenos"> 43</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 44</span>
+<span class="linenos"> 45</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos"> 46</span><span class="w">    </span><span class="n">ExampleTaskA</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">ILockable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">)</span>
+<span class="linenos"> 47</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">BasicTaskLoopTask</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lock</span><span class="p">))</span>
+<span class="linenos"> 48</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos"> 49</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 50</span><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 51</span><span class="w">    </span><span class="p">};</span>
+<span class="linenos"> 52</span><span class="p">};</span>
+<span class="linenos"> 53</span>
+<span class="linenos"> 54</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;tasking/FrequencyLimitedTaskLoopTask.hpp&quot;</span>
+<span class="linenos"> 55</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;timing/BasicTimer.hpp&quot;</span>
+<span class="linenos"> 56</span><span class="k">class</span><span class="w"> </span><span class="nc">ExampleTaskB</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">FrequencyLimitedTaskLoopTask</span>
+<span class="linenos"> 57</span><span class="p">{</span>
+<span class="linenos"> 58</span><span class="k">private</span><span class="o">:</span>
+<span class="linenos"> 59</span><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">counter</span><span class="p">;</span>
+<span class="linenos"> 60</span>
+<span class="linenos"> 61</span><span class="k">protected</span><span class="o">:</span>
+<span class="linenos"> 62</span><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="n">iterate</span><span class="p">()</span><span class="w"> </span><span class="k">override</span>
+<span class="linenos"> 63</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 64</span><span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;B: Task Invocation: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="linenos"> 65</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">++</span><span class="n">counter</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="sc">&#39;z&#39;</span><span class="p">)</span>
+<span class="linenos"> 66</span><span class="w">        </span><span class="p">{</span>
+<span class="linenos"> 67</span><span class="w">            </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
+<span class="linenos"> 68</span><span class="w">        </span><span class="p">}</span>
+<span class="linenos"> 69</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos"> 70</span>
+<span class="linenos"> 71</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos"> 72</span><span class="w">    </span><span class="n">ExampleTaskB</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">ILockable</span><span class="o">&gt;</span><span class="w"> </span><span class="n">lock</span><span class="p">)</span>
+<span class="linenos"> 73</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">FrequencyLimitedTaskLoopTask</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">lock</span><span class="p">),</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">timing</span><span class="o">::</span><span class="n">BasicTimer</span><span class="o">&gt;</span><span class="p">())</span>
+<span class="linenos"> 74</span><span class="w">        </span><span class="p">,</span><span class="w"> </span><span class="n">counter</span><span class="p">(</span><span class="sc">&#39;a&#39;</span><span class="p">)</span>
+<span class="linenos"> 75</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos"> 76</span><span class="w">        </span><span class="k">this</span><span class="o">-&gt;</span><span class="n">setTickCountBetweenIterations</span><span class="p">(</span><span class="k">this</span><span class="o">-&gt;</span><span class="n">getTimerTicksPerSecond</span><span class="p">());</span><span class="w"> </span><span class="c1">// &gt;1s between calls to iterate()</span>
+<span class="linenos"> 77</span><span class="w">        </span><span class="k">return</span><span class="p">;</span>
+<span class="linenos"> 78</span><span class="w">    </span><span class="p">};</span>
+<span class="linenos"> 79</span><span class="p">};</span>
+<span class="linenos"> 80</span>
+<span class="linenos"> 81</span><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span>
+<span class="linenos"> 82</span><span class="p">{</span>
+<span class="linenos"> 83</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">signalHandler</span><span class="p">);</span>
+<span class="linenos"> 84</span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">signal</span><span class="p">(</span><span class="n">SIGTERM</span><span class="p">,</span><span class="w"> </span><span class="n">signalHandler</span><span class="p">);</span>
+<span class="linenos"> 85</span>
+<span class="linenos"> 86</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ExampleTaskA</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">Lock</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="linenos"> 87</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">ExampleTaskB</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">osal</span><span class="o">::</span><span class="n">locking</span><span class="o">::</span><span class="n">Lock</span><span class="o">&gt;</span><span class="p">());</span>
+<span class="linenos"> 88</span>
+<span class="linenos"> 89</span><span class="cp">#ifdef USE_THREADS</span>
+<span class="linenos"> 90</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskAThread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">ThreadedTaskDecorator</span><span class="p">(</span><span class="o">*</span><span class="n">exampleTaskA</span><span class="p">);</span>
+<span class="linenos"> 91</span><span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">exampleTaskBThread</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">osal</span><span class="o">::</span><span class="n">tasking</span><span class="o">::</span><span class="n">ThreadedTaskDecorator</span><span class="p">(</span><span class="o">*</span><span class="n">exampleTaskB</span><span class="p">);</span>
+<span class="linenos"> 92</span><span class="cp">#endif</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span><span class="cp">#ifdef USE_THREADS</span>
+<span class="linenos"> 95</span><span class="w">    </span><span class="n">exampleTaskAThread</span><span class="p">.</span><span class="n">doStart</span><span class="p">();</span>
+<span class="linenos"> 96</span><span class="w">    </span><span class="n">exampleTaskBThread</span><span class="p">.</span><span class="n">doStart</span><span class="p">();</span>
+<span class="linenos"> 97</span>
+<span class="linenos"> 98</span><span class="w">    </span><span class="n">exampleTaskAThread</span><span class="p">.</span><span class="n">doRun</span><span class="p">();</span>
+<span class="linenos"> 99</span><span class="w">    </span><span class="n">exampleTaskBThread</span><span class="p">.</span><span class="n">doRun</span><span class="p">();</span>
+<span class="linenos">100</span><span class="cp">#else</span>
+<span class="linenos">101</span><span class="w">    </span><span class="n">exampleTaskA</span><span class="o">-&gt;</span><span class="n">doStart</span><span class="p">();</span>
+<span class="linenos">102</span><span class="w">    </span><span class="n">exampleTaskB</span><span class="o">-&gt;</span><span class="n">doStart</span><span class="p">();</span>
+<span class="linenos">103</span><span class="cp">#endif</span>
+<span class="linenos">104</span>
+<span class="linenos">105</span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">mainLoopDoRun</span><span class="p">)</span>
+<span class="linenos">106</span><span class="w">    </span><span class="p">{</span>
+<span class="linenos">107</span><span class="cp">#ifdef USE_THREADS</span>
+<span class="linenos">108</span><span class="w">        </span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos">109</span><span class="cp">#else</span>
+<span class="linenos">110</span><span class="w">        </span><span class="n">exampleTaskA</span><span class="o">-&gt;</span><span class="n">doRun</span><span class="p">();</span>
+<span class="linenos">111</span><span class="w">        </span><span class="n">exampleTaskB</span><span class="o">-&gt;</span><span class="n">doRun</span><span class="p">();</span>
+<span class="linenos">112</span><span class="cp">#endif</span>
+<span class="linenos">113</span><span class="w">    </span><span class="p">}</span>
+<span class="linenos">114</span>
+<span class="linenos">115</span><span class="cp">#ifdef USE_THREADS</span>
+<span class="linenos">116</span><span class="w">    </span><span class="n">exampleTaskAThread</span><span class="p">.</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="linenos">117</span><span class="w">    </span><span class="n">exampleTaskBThread</span><span class="p">.</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="linenos">118</span><span class="cp">#else</span>
+<span class="linenos">119</span><span class="w">    </span><span class="n">exampleTaskA</span><span class="o">-&gt;</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="linenos">120</span><span class="w">    </span><span class="n">exampleTaskB</span><span class="o">-&gt;</span><span class="n">doTerminate</span><span class="p">();</span>
+<span class="linenos">121</span><span class="cp">#endif</span>
+<span class="linenos">122</span>
+<span class="linenos">123</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="linenos">124</span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="statemachines/example_statemachines.html" class="btn btn-neutral float-left" title="Example: Statemachines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="example_util_computedValues.html" class="btn btn-neutral float-right" title="Example: Util ComputedValues" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

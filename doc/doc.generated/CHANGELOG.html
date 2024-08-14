@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. Changelog &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Glossary" href="../00_general/glossary.html" />
+    <link rel="prev" title="5. Frequently Asked Questions" href="../00_general/frequent_questions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../00_general/index.html">About</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../00_general/before_you_start.html">1. Before you start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../00_general/about_mtp.html">2. Module Type Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../00_general/about_noa.html">3. NAMUR Open Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../00_general/feature_list.html">4. Feature List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../00_general/frequent_questions.html">5. Frequently Asked Questions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6. Changelog</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">6.1. [3.6.0] - 2024-08-13</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#added">6.1.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fixed">6.1.2. Fixed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#changed">6.1.3. Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deprecated">6.1.4. Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">6.2. [3.5.0] - 2023-12-19</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">6.2.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">6.2.2. Fixed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">6.2.3. Changed:</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">6.3. [3.4.1] - 2023-11-17</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id7">6.3.1. Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">6.4. [3.4.0] - 2023-11-10</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">6.4.1. Added</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">6.5. [3.3.0] - 2023-09-29</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id11">6.5.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id12">6.5.2. Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id13">6.5.3. Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">6.6. [3.2.0] - 2023-08-09</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id15">6.6.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">6.6.2. Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">6.6.3. Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">6.7. [3.1.0] - 2023-04-13</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id19">6.7.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id20">6.7.2. Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">6.8. [3.0.0] - 2022-06-20</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id22">6.8.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id23">6.8.2. Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#removed">6.8.3. Removed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id24">6.8.4. Fixed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id25">6.8.5. Deprecated</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">6.9. [2.0.0] - 2021-11-12</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id27">6.9.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id28">6.9.2. Fixed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id29">6.9.3. Changed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">6.10. [1.2.0] - 2020-12-16</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id31">6.10.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id32">6.10.2. Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id33">6.10.3. Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">6.11. [1.1.0] - 2020-11-25</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id35">6.11.1. Added</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id36">6.11.2. Changed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id37">6.11.3. Fixed</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id38">6.12. [1.0.0] - 2020-10-28</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id39">6.12.1. Removed</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id40">6.12.2. Added</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id41">6.13. [0.0.0] - 2020-07-16</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id42">6.13.1. Added</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../00_general/glossary.html">7. Glossary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../10_getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../00_general/index.html">About</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">6. </span>Changelog</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/doc.generated/CHANGELOG.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="changelog">
+<h1><span class="section-number">6. </span>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
+<p>All notable changes to this project will be documented in this file.</p>
+<p>The format is based on <a class="reference external" href="https://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>,<br />and this project adheres to <a class="reference external" href="https://semver.org/spec/v2.0.0.html">Semantic Versioning</a>
+in accordance with Semodia GmbH Guidelines.</p>
+<section id="id1">
+<h2><span class="section-number">6.1. </span>[3.6.0] - 2024-08-13<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="added">
+<h3><span class="section-number">6.1.1. </span>Added<a class="headerlink" href="#added" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Detailed cena demo documentation for mtp control engine example</p></li>
+<li><p>UA Expert templates in tools/</p></li>
+</ul>
+</section>
+<section id="fixed">
+<h3><span class="section-number">6.1.2. </span>Fixed<a class="headerlink" href="#fixed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fixed various compiler warnings, mostly concerning unused parameters</p></li>
+<li><p>Model: MTP: Multiple variables in the PeaInformationLabel now are assigned correct values</p></li>
+</ul>
+</section>
+<section id="changed">
+<h3><span class="section-number">6.1.3. </span>Changed<a class="headerlink" href="#changed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Model: SemanticModelEntities cannot be copied anymore</p></li>
+<li><p>mbedcrypto: Update from v3.4.1 to v3.6.0</p></li>
+<li><p>open62541: Update from v1.3.6 to v1.3.11</p></li>
+</ul>
+</section>
+<section id="deprecated">
+<h3><span class="section-number">6.1.4. </span>Deprecated<a class="headerlink" href="#deprecated" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Model: MTP: PeaInformationLabel and ModuleTypePackage constructors with out-of-date parameters</p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2><span class="section-number">6.2. </span>[3.5.0] - 2023-12-19<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<section id="id3">
+<h3><span class="section-number">6.2.1. </span>Added<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>modbus: New dataio library to access Modbus TCP servers (Client and Server)</p></li>
+<li><p>nanomodbus: embedded third party backend library for modbus datio</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3><span class="section-number">6.2.2. </span>Fixed<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>mtp, reflection: ProcessValueIn and ProcessValueOut are now correctly reflected by the OPC UA server</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3><span class="section-number">6.2.3. </span>Changed:<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>util: EndianessTool now uses constexpr to detect system endianness at compile time</p></li>
+</ul>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">6.3. </span>[3.4.1] - 2023-11-17<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<section id="id7">
+<h3><span class="section-number">6.3.1. </span>Fixed<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Examples: Added proper static node Ids to example_mtp_controlengine</p></li>
+</ul>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">6.4. </span>[3.4.0] - 2023-11-10<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<section id="id9">
+<h3><span class="section-number">6.4.1. </span>Added<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>CENA Demo build: New build target for testing purposes</p></li>
+</ul>
+</section>
+</section>
+<section id="id10">
+<h2><span class="section-number">6.5. </span>[3.3.0] - 2023-09-29<a class="headerlink" href="#id10" title="Link to this heading"></a></h2>
+<section id="id11">
+<h3><span class="section-number">6.5.1. </span>Added<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MTP: Added <code class="docutils literal notranslate"><span class="pre">PIDCtrl</span></code> data assembly logic</p></li>
+<li><p>mbedcrypto: Portable cryptography library for inclusion in other libraries</p></li>
+<li><p>Reflection: OPC UA: Variable change subscriptions on OPCUA client</p></li>
+<li><p>Reflection: OPC UA: Functionality to add multiple change callbacks per variable on OPCUA servers</p></li>
+<li><p>Reflection: OPC UA: TLS support for OPC UA clients using the mbedTls library (Currently limited to <code class="docutils literal notranslate"><span class="pre">SecurityPolicy#Basic256Sha256</span></code>)</p></li>
+<li><p>biobrain: New dataio library to access Sartorius Biobrain servers</p></li>
+</ul>
+</section>
+<section id="id12">
+<h3><span class="section-number">6.5.2. </span>Changed<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Update open62541 from v1.1.2 to 1.3.6</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3><span class="section-number">6.5.3. </span>Fixed<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>ProcParamApply now performs the handshake correctly and is applicable even when ProcCur is not yet set</p></li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<h2><span class="section-number">6.6. </span>[3.2.0] - 2023-08-09<a class="headerlink" href="#id14" title="Link to this heading"></a></h2>
+<section id="id15">
+<h3><span class="section-number">6.6.1. </span>Added<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Examples: New Example on MTP BinValve</p></li>
+<li><p>License: Add licensing enforcements to library builds</p></li>
+<li><p>License: NetworkMediaControllerTrait for Windows builds</p></li>
+<li><p>License: WallTimeTrait</p></li>
+</ul>
+</section>
+<section id="id16">
+<h3><span class="section-number">6.6.2. </span>Changed<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>CMake Build System: overhauled regarding sub libraries</p>
+<ul>
+<li><p>New CMake option: <code class="docutils literal notranslate"><span class="pre">SEMODIA_CONTROLENGINE_BUILD_STANDALONE_LIBS</span></code></p>
+<ul>
+<li><p>Build static and shared libraries of CENA libraries to distribute in binary form</p></li>
+<li><p>Include required header files in installation target</p></li>
+<li><p>Deploy example applications that link against binary libraries</p></li>
+</ul>
+</li>
+<li><p>CMake target naming change: Developers must link <code class="docutils literal notranslate"><span class="pre">${library_name}_shared</span></code> or <code class="docutils literal notranslate"><span class="pre">${library_name}_static</span></code> instead of <code class="docutils literal notranslate"><span class="pre">${library_name}</span></code></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id17">
+<h3><span class="section-number">6.6.3. </span>Fixed<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>GCC &gt;= 13 compilation errors due to changed default included C++ headers</p></li>
+</ul>
+</section>
+</section>
+<section id="id18">
+<h2><span class="section-number">6.7. </span>[3.1.0] - 2023-04-13<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
+<section id="id19">
+<h3><span class="section-number">6.7.1. </span>Added<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>computedValues: PID-Controller utility</p></li>
+<li><p>locking: LockedObject - a container class that constraints access to its internally managed object via a lock</p></li>
+</ul>
+</section>
+<section id="id20">
+<h3><span class="section-number">6.7.2. </span>Changed<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>RaspberryIo: Removed completely due to GPL licensing of linked upstream library</p></li>
+</ul>
+</section>
+</section>
+<section id="id21">
+<h2><span class="section-number">6.8. </span>[3.0.0] - 2022-06-20<a class="headerlink" href="#id21" title="Link to this heading"></a></h2>
+<section id="id22">
+<h3><span class="section-number">6.8.1. </span>Added<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>pilotone: Incorporated driver to control Huber PilotOne PLC, enabling control of Huber tempering module operations</p></li>
+<li><p>ritmo: Incorporated driver to control Fink Chem+Tech Ritmo R15 membrane pumps</p></li>
+<li><p>PiControl: Support for temperature probes (AIO RTD elements)</p></li>
+<li><p>Reflection: OPC UA: Expanded interface to allow testing for the existence of NodeIds (used in generated tests)</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">ServiceParameters</span></code> (<code class="docutils literal notranslate"><span class="pre">Configuration-</span></code>/<code class="docutils literal notranslate"><span class="pre">ProcedureParameter</span></code>) can (optionally) automate the handling of <code class="docutils literal notranslate"><span class="pre">ApplyEn</span></code> in each service state for convenience</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">Apply</span></code>-Logic and pre-configurable units/ranges added to <code class="docutils literal notranslate"><span class="pre">ProcessValueIns</span></code></p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">Apply</span></code>-Logic added to ParameterElements</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">DIntServParam</span></code> (sans enum support), <code class="docutils literal notranslate"><span class="pre">StringProcessValueIn</span></code>, <code class="docutils literal notranslate"><span class="pre">StringServParam</span></code></p></li>
+<li><p>MTP: ReportValues (IndicatorElements) implement “Freezing” and MissedValueFlags</p></li>
+<li><p>MTP: MTP Unit codes are now available as enum/class</p></li>
+</ul>
+</section>
+<section id="id23">
+<h3><span class="section-number">6.8.2. </span>Changed<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Messaging: API moved to utilities and made optional</p></li>
+<li><p>MTP: Adapted ServiceOperationMode and ServiceSourceMode to be compatible with standard interpretation of 3rd party software (breaks SOLID)</p></li>
+<li><p>MTP: Removed <code class="docutils literal notranslate"><span class="pre">AssetId</span></code> and <code class="docutils literal notranslate"><span class="pre">DeviceClass</span></code> from high level PEA API, as these are supposed to be set by the POL</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">ReportValues</span></code> of selected procedures are frozen (forced) by the service when it enters COMPLETED, ABORTED or STOPPED</p></li>
+<li><p>MTP: Examples: <code class="docutils literal notranslate"><span class="pre">example_mtp_controlEngine</span></code> was reinstated and upgraded (as a pattern) for the new model core function</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">ParameterElements</span></code> (Service/ProcedureParameter) can either leave their handling/interpretation to procedure state callbacks (as with legacy, suitable for parameters that are evaluated every time) or define a userspace callback that triggers when apply() happens (suitable for expressions that configure a FEA or smart field device).</p></li>
+<li><p>MTP: Service- and ProcedureParameter updates are now governed by a services <code class="docutils literal notranslate"><span class="pre">ApplyEn</span></code>, which can be controlled on a by-ServiceState basis from userspace</p></li>
+<li><p>MTP: Procedures now require individual command-enable-callbacks to determine active transitions, even if the procedure is not active</p></li>
+<li><p>Util: StateMachine: Initial states are no longer active by default; <code class="docutils literal notranslate"><span class="pre">enter()</span></code> needs to be called on/by parent state to activate</p></li>
+<li><p>MTP: Service Procedure selection, state machine and CommandEn/CommandInfo according to new 01/2022 MTP standard</p></li>
+<li><p>MTP: Enforcing common interface for handling Op/ServiceModes across <code class="docutils literal notranslate"><span class="pre">ParameterElement</span></code>s and <code class="docutils literal notranslate"><span class="pre">ServiceControl</span></code></p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">QualityCodes</span></code> check and enforce correct encoding to/from native integer type</p></li>
+<li><p>MTP: Re-implementation <code class="docutils literal notranslate"><span class="pre">BinServParam</span></code>, <code class="docutils literal notranslate"><span class="pre">AnaServParam</span></code>, <code class="docutils literal notranslate"><span class="pre">DIntServParam</span></code> and <code class="docutils literal notranslate"><span class="pre">StringServParam</span></code> as ParameterElements, not with <code class="docutils literal notranslate"><span class="pre">ApplyBaseFunction</span></code></p></li>
+<li><p>MTP: High-Level API access to VUnit <strong>must</strong> use <code class="docutils literal notranslate"><span class="pre">UnitCodes</span></code></p></li>
+<li><p>MTP: High-Level API access to WQC or VQC <strong>must</strong> use <code class="docutils literal notranslate"><span class="pre">QualityCodes</span></code></p></li>
+<li><p>PADIM: New include structure for generated code, also used enforced during API generation</p></li>
+<li><p>MTP: New include structure for generated code, also used during API generation</p></li>
+<li><p>MTP: Service, Procedure, ServiceControl and ServiceParameters have been upgraded to the 01/2022 VDE/VDI 2658 specification</p></li>
+<li><p>MTP: Regenerated changed classes from specification, replacing base classes</p></li>
+<li><p>MTP: All pointer switched to smart pointers</p></li>
+</ul>
+</section>
+<section id="removed">
+<h3><span class="section-number">6.8.3. </span>Removed<a class="headerlink" href="#removed" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">BinServParamIn</span></code> no longer has the ability to receive interpretations (VStates) from POL</p></li>
+<li><p>MTP: “WQC”, “VQC” and Units are no longer passed as integer values (require use of proper enums)</p></li>
+<li><p>MTP: Outdated/Legacy business logic and tests from Service, ServiceControl, Procedure, ServerParameter</p></li>
+</ul>
+</section>
+<section id="id24">
+<h3><span class="section-number">6.8.4. </span>Fixed<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MTP: Documentation, tutorials and examples updated to match CENA v3 MTP model Core</p></li>
+<li><p>HART: Master now updated UART flowcontrol on his own (moved into CENA from userspace)</p></li>
+<li><p>OSAL: <code class="docutils literal notranslate"><span class="pre">FrequencyLimitedTaskLoopTask</span></code> now consider the time between executions in Milliseconds instead of ticks (far more user-friendly in userspace)</p></li>
+</ul>
+</section>
+<section id="id25">
+<h3><span class="section-number">6.8.5. </span>Deprecated<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>HART: Replaced C-style pointers for locks and UART with smart pointers to make driver consistent with CENA guidelines</p></li>
+<li><p>PiControl: Remove <code class="docutils literal notranslate"><span class="pre">PiControl</span></code>-Prefix from <code class="docutils literal notranslate"><span class="pre">StatusCode</span></code></p></li>
+<li><p>MTP: Procedures <strong>must</strong> have userspace callbacks to determine their CommandInfo (enabled transitions) and can no longer be created “defaultly” by Services or ServiceSets</p></li>
+<li><p>MTP: Interdicting UserSpace or high leven API access to internal functions by moving them to protected/friend in addition to deprecation warnings</p></li>
+<li><p>MTP: QualityCodes can no longer be set numerically from userspace; valid QualityCodes enforced by API</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">updateWQC</span></code> is now <code class="docutils literal notranslate"><span class="pre">setQualityCode()</span></code></p></li>
+<li><p>MTP: Access to QualityCodes was limited to <code class="docutils literal notranslate"><span class="pre">IQualityCode</span></code>; can no longer be set using C’Tor</p></li>
+<li><p>MTP: Any <code class="docutils literal notranslate"><span class="pre">int</span></code>-Access to Units from C’Tors</p></li>
+<li><p>MTP: Service, Procedure, ServiceControl and ServiceParameters have been superseded and are incompatible with version 2.x of CENA</p></li>
+</ul>
+</section>
+</section>
+<section id="id26">
+<h2><span class="section-number">6.9. </span>[2.0.0] - 2021-11-12<a class="headerlink" href="#id26" title="Link to this heading"></a></h2>
+<section id="id27">
+<h3><span class="section-number">6.9.1. </span>Added<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Drivers: Support for Bronkhorsts proprietary ProPar communication protocol</p></li>
+<li><p>License: Rudimentary license framework and MAC-Address trait</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">AnaManInt</span></code> and <code class="docutils literal notranslate"><span class="pre">BinManInt</span></code> with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">BinServParam</span></code>  with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">AnaVlv</span></code> with associated logic</p></li>
+<li><p>MTP: MTP Control Engine base class</p></li>
+<li><p>OSAL: Optional Logging as decorator for any userland class</p></li>
+<li><p>OSAL: Time-Bound task type that only executes every N time ticks (courtesy of BasicTimer)</p></li>
+<li><p>MTP: Added support for <code class="docutils literal notranslate"><span class="pre">ProcedureValueIn</span></code> (<code class="docutils literal notranslate"><span class="pre">[Ana|Bin|DInt]ProcessValueIn</span></code>) and <code class="docutils literal notranslate"><span class="pre">VScaleBaseInFunction</span></code></p></li>
+<li><p>MTP: Added support for <code class="docutils literal notranslate"><span class="pre">ProcedureParameters</span></code>, <code class="docutils literal notranslate"><span class="pre">ReportValues</span></code> &amp; <code class="docutils literal notranslate"><span class="pre">ProcedureValueOut</span></code></p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">AnaServParam</span></code> (and ParameterElement base class) as <code class="docutils literal notranslate"><span class="pre">ConfigurationParameters</span></code> for Services</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">BinMan</span></code> with associated logic</p></li>
+<li><p>Drivers: Kunbus PiControl drivers for LED, Relays, DI, DO, AI and AO</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">BinVlv</span></code> with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">OperatingModeBaseFunction</span></code> with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">BinView</span></code> with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">ResetBaseFunction</span></code> with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">InterlockBaseFunction</span></code> with associated logic</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">SourceModeBaseFunction</span></code> with associated logic</p></li>
+<li><p>Reflection: Dynamic (but single pass) PADIM reflection</p></li>
+<li><p>Model: Business Logic for <code class="docutils literal notranslate"><span class="pre">AnalogSignal</span></code> and <code class="docutils literal notranslate"><span class="pre">AnalogSignalVariables</span></code></p></li>
+<li><p>Model: Signal Set</p></li>
+<li><p>Model: Added PADIM classes (high-level <code class="docutils literal notranslate"><span class="pre">signalVariableTypes</span></code> are not functional yet)</p></li>
+<li><p>Drivers: UART IO Drivers for Linux/BSD</p></li>
+<li><p>Drivers: Foundation HART IO Driver /w global commands</p></li>
+<li><p>Reflection: OPC UA: Logging of open62541 is redirected and can be customized in userspace</p></li>
+<li><p>Testing: Optional stacktrace-injection</p></li>
+<li><p>Logging: New logging API using sinks (files, terminal), formatters and providing asynchronous logging</p></li>
+</ul>
+</section>
+<section id="id28">
+<h3><span class="section-number">6.9.2. </span>Fixed<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Model: MTP: Added behavior to handle ‘buggy’ services /wo procedures or without default procedures</p></li>
+<li><p>Drivers: HART: Allowing HART5 transmissions with as little as 3 preamble bytes to address problematic field devices or bytes lost by UART</p></li>
+<li><p>OSAL/Tasks: Require uniquely owned locks; sharing locks was previously possible and severely misrepresented intent</p></li>
+<li><p>MTP: SC in EXECUTE would always complete in 1 update() instead of evaluating the callbacks <code class="docutils literal notranslate"><span class="pre">complete</span></code> feedback</p></li>
+<li><p>Model: MTP: ServiceSourceMode interpretation and updating in ParameterElements was broken (could only be correctly updated by accessing ReferencesSourceMode directly)</p></li>
+<li><p>Reflection: OPC UA: Safeguard against writing to std::any container of wrong type</p></li>
+<li><p>Model: MTP: Byte and DWord are now unsigned (fixes QualityCode, OSLevel, ServiceControl and LockViews).</p></li>
+<li><p>Reflection: OPC UA: attempt to link to existing/created nodeIds before creating new nodes (allows using same IndicatorElement in multiple procedures)</p></li>
+<li><p>Reflection: OPC UA: MTP Reflection now correctly redirects to specific DA types (e.g. does not IndicatorElement, but AnaVIew)</p></li>
+<li><p>Drivers: HART uses per message callbacks instead of per-command callbacks (that would not be removed and cause a memory leak)</p></li>
+<li><p>Util: <code class="docutils literal notranslate"><span class="pre">EndianessTool</span></code> was “stuck” on detecting everything as bigEndian and tests were broken accordingly</p></li>
+</ul>
+</section>
+<section id="id29">
+<h3><span class="section-number">6.9.3. </span>Changed<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Directory structure now separates includes from sources, mandating use of component-path-prefixes in #include directives</p></li>
+<li><p>Drivers: UART: changed interface specification (breaking) to support explicit flow-control and blocking/nonblocking IO modes along with platform-defined update() function</p></li>
+<li><p>MTP: updateRequest() and updateSetpoint() have to be called on <code class="docutils literal notranslate"><span class="pre">(Bin|Ana)Man[Int]</span></code>; removed pol/opc ua access function to update Rbk on OPC UA writes</p></li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">Service</span></code> class now uses update(), not iterate(); which is more of a task loop thing.</p>
+<ul>
+<li><p>This may break older service implementations.</p></li>
+</ul>
+</li>
+<li><p>MTP: <code class="docutils literal notranslate"><span class="pre">ServiceOperationMode()</span></code> and <code class="docutils literal notranslate"><span class="pre">ServiceSourceModes</span></code> provide <code class="docutils literal notranslate"><span class="pre">getUpdatedXY()</span></code> (which performs handshakes &amp; updates values) and <code class="docutils literal notranslate"><span class="pre">getCurrentXY()</span></code> for peeking into current settings without change</p></li>
+<li><p>MTP: Corrected/Overhauled logic for AnaMan; conform to <code class="docutils literal notranslate"><span class="pre">updateSetpoint()</span></code>, <code class="docutils literal notranslate"><span class="pre">getCurrentSetpoint()</span></code> and <code class="docutils literal notranslate"><span class="pre">getUpdatedSetpoint()</span></code> for OperationsElements (like ParameterElement &amp; BinMan)</p></li>
+<li><p>Drivers: HART support TX rate limiting</p></li>
+<li><p>Bumped Version Number of dev branch to 1.3.0</p></li>
+<li><p>Reflection: OPC UA: Extended Interface definition to support <code class="docutils literal notranslate"><span class="pre">deleteNode()</span></code> calls (both tree and single, path and nodeid)</p></li>
+</ul>
+</section>
+</section>
+<section id="id30">
+<h2><span class="section-number">6.10. </span>[1.2.0] - 2020-12-16<a class="headerlink" href="#id30" title="Link to this heading"></a></h2>
+<section id="id31">
+<h3><span class="section-number">6.10.1. </span>Added<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MTP: Added <code class="docutils literal notranslate"><span class="pre">StringView</span></code> Items</p></li>
+</ul>
+</section>
+<section id="id32">
+<h3><span class="section-number">6.10.2. </span>Changed<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>MTP: All <code class="docutils literal notranslate"><span class="pre">AnaView</span></code> and <code class="docutils literal notranslate"><span class="pre">StringView</span></code> values have static OPC UA IDs</p></li>
+<li><p>MTP: QualityCode classes now share a common interface /w symbolic values</p></li>
+</ul>
+</section>
+<section id="id33">
+<h3><span class="section-number">6.10.3. </span>Fixed<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>OSAL: Timer implementation based on chrono was using flawed “ticks”</p></li>
+<li><p>CMake: Correctly compile and run tests even if OPC UA is disabled</p></li>
+</ul>
+</section>
+</section>
+<section id="id34">
+<h2><span class="section-number">6.11. </span>[1.1.0] - 2020-11-25<a class="headerlink" href="#id34" title="Link to this heading"></a></h2>
+<section id="id35">
+<h3><span class="section-number">6.11.1. </span>Added<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Driver: Support for interaction with Siemens S7 devices using SNAP7</p></li>
+<li><p>MTP, Reflection: Support for assigning static node IDs to DataItems</p></li>
+</ul>
+</section>
+<section id="id36">
+<h3><span class="section-number">6.11.2. </span>Changed<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>CMake options and targets now include “CONTROLENGINE” to avoid clashing with projects</p></li>
+<li><p>MTP, Reflection: Reflecting communication set instance list now uses TagName of DataItems instead of list numbers</p></li>
+</ul>
+</section>
+<section id="id37">
+<h3><span class="section-number">6.11.3. </span>Fixed<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Reflection: Memory Leak in open62541 OPC UA Server browser operation</p></li>
+<li><p>OSAL: Prevent race condition in optimized code by making ThreadedDecorator datastructs atomic</p></li>
+</ul>
+</section>
+</section>
+<section id="id38">
+<h2><span class="section-number">6.12. </span>[1.0.0] - 2020-10-28<a class="headerlink" href="#id38" title="Link to this heading"></a></h2>
+<section id="id39">
+<h3><span class="section-number">6.12.1. </span>Removed<a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Deprecated or sensitive documents from documentation</p>
+<ul>
+<li><p>Global Requirements-Engineering Documents from documentation</p></li>
+<li><p>Unused API-Documentation components (Messaging, mtp)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id40">
+<h3><span class="section-number">6.12.2. </span>Added<a class="headerlink" href="#id40" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>New MTP Model Elements:</p>
+<ul>
+<li><p>Read/Write Dataitems (with type casts and operators)</p></li>
+<li><p>AnaView</p>
+<ul>
+<li><p>ScaleSettingsBaseFunction</p></li>
+</ul>
+</li>
+<li><p>AnaMan</p>
+<ul>
+<li><p>ValueLimitatationBaseFunction</p></li>
+</ul>
+</li>
+<li><p>AnaMon</p>
+<ul>
+<li><p>LimitMonitoringBaseFunction</p></li>
+</ul>
+</li>
+<li><p>Services:</p>
+<ul>
+<li><p>ServiceSet</p></li>
+<li><p>Service</p></li>
+<li><p>mtp::Procedure</p></li>
+<li><p>ServiceControl</p></li>
+<li><p>ServiceModeBaseFunction</p></li>
+<li><p>ServiceOperationModeBaseFunction</p></li>
+</ul>
+</li>
+<li><p>Communications (incomplete)</p></li>
+<li><p>ModuleTypePackage (incomplete)</p></li>
+</ul>
+</li>
+<li><p>Examples:</p>
+<ul>
+<li><p>Raspberry Potentiometer example (AnaView, DataIO on Pi)</p></li>
+<li><p>Service-State to AnaView example (Services, Procedures, AnaView)</p></li>
+</ul>
+</li>
+<li><p>DataIO:</p>
+<ul>
+<li><p>Raspberry peripherals</p></li>
+<li><p>AutomationHat Driver</p>
+<ul>
+<li><p>SN3218 and ADS1015 I2C support</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Statement API</p></li>
+<li><p>OPC UA reflection API:</p>
+<ul>
+<li><p>open62541 server-/client wrappers</p></li>
+</ul>
+</li>
+<li><p>OSAL Task framework</p>
+<ul>
+<li><p>Thread Decorators (Linux, Windows/Cygwin)</p></li>
+<li><p>Locks/Mutexes (Linux, Windows/Cygwin)</p></li>
+</ul>
+</li>
+<li><p>OSAL Messaging framework</p>
+<ul>
+<li><p>Model Event subsystem</p></li>
+</ul>
+</li>
+<li><p>Generated MTP Model API</p></li>
+<li><p>Project structure and environment</p>
+<ul>
+<li><p>Code and API documentation</p></li>
+<li><p>Requirements engineering documentation</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="id41">
+<h2><span class="section-number">6.13. </span>[0.0.0] - 2020-07-16<a class="headerlink" href="#id41" title="Link to this heading"></a></h2>
+<section id="id42">
+<h3><span class="section-number">6.13.1. </span>Added<a class="headerlink" href="#id42" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>CMake project skeleton</p></li>
+<li><p>Project structure</p></li>
+<li><p>Incorporated Doxygen and Sphinx documentation systems</p></li>
+<li><p>Set up sample CI build pipeline</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../00_general/frequent_questions.html" class="btn btn-neutral float-left" title="5. Frequently Asked Questions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../00_general/glossary.html" class="btn btn-neutral float-right" title="7. Glossary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

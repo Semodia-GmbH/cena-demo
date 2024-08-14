@@ -1,0 +1,8 @@
+/* Change the sidebar background color */
+.wy-side-nav-search {
+    background: #1a3a65; /* Change this to your desired color */
+}
+
+.version {
+    color: #ececec !important;
+}

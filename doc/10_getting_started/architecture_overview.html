@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. NOA and MTP Control Engines &mdash; ControlEngine.Native 3.6.0-master.20240813092604+33b462c4 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/semodia_favicon_light.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=bc0274a9"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorials" href="../20_tutorials/index.html" />
+    <link rel="prev" title="1.2. Creating statically linked binaries" href="building_and_using_cena/static_linking.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ControlEngine.Native
+              <img src="../_static/semodia_logo.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                3.6.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">CENA Handbook:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../00_general/index.html">About</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="building_and_using_cena/index.html">1. Building and using CENA</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2. NOA and MTP Control Engines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#components-of-the-controlengine-pattern">2.1. Components of the ControlEngine pattern</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-model-component">2.1.1. The model component</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#processcontroller-and-data-input-output">2.1.2. ProcessController and Data Input/Output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-reflection-component">2.1.3. The reflection component</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#the-control-component">2.1.4. The control component</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-practical-example">2.2. A practical example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../20_tutorials/index.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ControlEngine.Native</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Getting Started</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">2. </span>NOA and MTP Control Engines</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/10_getting_started/architecture_overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="noa-and-mtp-control-engines">
+<span id="overview-architecture"></span><h1><span class="section-number">2. </span>NOA and MTP Control Engines<a class="headerlink" href="#noa-and-mtp-control-engines" title="Link to this heading"></a></h1>
+<p>If you are reading this documentation, you are properly in the process of writing a NOA or MTP application.</p>
+<p>Though CENA is a collection of loosely coupled SDK components, it was designed to work by applying a
+software design pattern that we call the “Control Engine Pattern”. This pattern segments any
+application into the following domains:</p>
+<ol class="arabic simple">
+<li><p>The <em>Model Core</em> that contains the information/class model with their associated business logic</p></li>
+<li><p>The <em>Process Controller</em> that handles any interaction with the physical by hosting <em>Data Input/Output</em> “drivers”</p></li>
+<li><p>The <em>Reflection</em> component (OPC UA Server + Model Reflection class) that can expose the model contents to a client</p></li>
+<li><p>The <em>Control Logic</em> that ties the information flow from the devices to the model together to form a unique, customer defined PEA or NOA Gateway</p></li>
+</ol>
+<p class="plantuml">
+<img src="../_images/plantuml-7c868437e02a1785278b40410fbfd413be5b3f1b.png" alt="&#64;startuml
+package ControlEngine.Native {
+    Reflection -- [Model]
+    [Model] - Control
+    [Model] -- ProcessController
+
+    ProcessController -- [Data I/O drivers]
+
+    [OPCUA] --( Reflection
+}
+Control )- [Custom Control Logic]
+&#64;enduml"/>
+</p>
+<p>The core philosophy behind CENA is that you actually just want to add the custom logic to tie everything
+together and let CENAs libraries handle everything else.</p>
+<section id="components-of-the-controlengine-pattern">
+<h2><span class="section-number">2.1. </span>Components of the ControlEngine pattern<a class="headerlink" href="#components-of-the-controlengine-pattern" title="Link to this heading"></a></h2>
+<section id="the-model-component">
+<h3><span class="section-number">2.1.1. </span>The model component<a class="headerlink" href="#the-model-component" title="Link to this heading"></a></h3>
+<p>Standardized information models like the MTP or PA-DIM are composed of several objects, which in addition to
+predefined attributes and class relations, they also contain “business logic”: Behavior that is specific to the
+class and defined by the specification.</p>
+<p>Example for business logic are analog values in the MTP model: The are represented as a float, but they may also
+include high/low alarm/warning/tolerance signals (booleans) and range limitations that need to be handled when the
+value is updated.</p>
+<p>The CENA information model cores are shipped as information model specific classes that include the business logic.</p>
+<p>The user interacts with the model cores using a high-level API. The model core does the heavy lifting, including
+deciding when to invoke callbacks that drive process interaction.</p>
+</section>
+<section id="processcontroller-and-data-input-output">
+<h3><span class="section-number">2.1.2. </span>ProcessController and Data Input/Output<a class="headerlink" href="#processcontroller-and-data-input-output" title="Link to this heading"></a></h3>
+<p>The model core - MTP or NOA - usually has a rather simplified view of the physical process.</p>
+<p>Here are two examples:</p>
+<dl class="simple">
+<dt>Example 1</dt><dd><p>A <strong>MTP controlled PEA</strong> for example may be filled with dozens of valves - but from a PEA standpoint, there is only
+a hand full of valid configurations, like “DOSE”, “DRAIN”, “CLEAN” and “CLOSE”. That the model cores abstract the underlying hardware is actually quite beneficial: A process controller ensures
+that the model core can interact with the process in a simplistic manner, e.g. by providing a <cite>setValveConfiguration(DOSE|DRAIN|CLEAN|CLOSE)</cite>-function.</p>
+</dd>
+<dt>Example 2</dt><dd><p>The PADIM model core of a <strong>NOA Security Gateway</strong> does not really care what protocol is used to leverage data.
+It will want to “detect” new devices, get notified if they are disconnected and read a fixed set of information in between.
+A process controller can use one or more protocols (HART, Profibus…) to provide e.g. <cite>std::list&lt;devices&gt; getNewDevices()</cite>.</p>
+</dd>
+</dl>
+<p>The process controller always abstracts the process and interaction with the physical world.
+Inside of course you will use specific Data I/O “drivers” to communicate with the devices…
+CENA provides several of these. Take a look at the <a class="reference internal" href="../00_general/feature_list.html#feature-list-dataio"><span class="std std-ref">list of available DataIO drivers</span></a> in
+CENAs feature set.</p>
+</section>
+<section id="the-reflection-component">
+<h3><span class="section-number">2.1.3. </span>The reflection component<a class="headerlink" href="#the-reflection-component" title="Link to this heading"></a></h3>
+<p>The Reflection component exposes (parts of) the model component to control or monitoring systems, like the POL. The
+usual use-case is an OPC UA Server representing the model.</p>
+<p>The reflection mechanism provided by the CENA ensures that you do not have to interact with the model or OPC UA (unless you want to).
+You simply construct the model and hand it and your OPC UA server instance to a <cite>Reflector</cite>-Class; this will take care
+of connecting the model core with the OPC UA server’s Nodes.</p>
+<img alt="../_images/ditaa-0c9f6f2f8eeb838d4de026fa897fd26514bd7e42.png" src="../_images/ditaa-0c9f6f2f8eeb838d4de026fa897fd26514bd7e42.png" />
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Currently, reflection is a one-time process: A Reflection class will take care of mapping a model to a server.
+Dynamic changes to the model, like modifying the model over OPC UA or deleting structures in both model and OPC UA,
+are on the roadmap, but not implemented yet.</p>
+</div>
+</section>
+<section id="the-control-component">
+<h3><span class="section-number">2.1.4. </span>The control component<a class="headerlink" href="#the-control-component" title="Link to this heading"></a></h3>
+<p>The control engine is essentially what the API user supplies: It creates the model, reflects it using a provided
+server instantiates/configures drivers. It then reacts to changes in the model or the drivers (e.g. using callbacks).</p>
+<p>The control component has 3 aspects to it:</p>
+<ol class="arabic simple">
+<li><p>Wrap the Model Core, Reflection mechanism and DataIO into a task-driven execution model</p></li>
+<li><p>When triggered by the Model Core: Update the DataIO accordingly to perform operations as instructed by the model and provide feedback to it</p></li>
+<li><p>When triggered by the Data IO components: Update the Model Core contents according to the source change</p></li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The control component is currently not implemented as a separate class in the API</p>
+</div>
+</section>
+</section>
+<section id="a-practical-example">
+<h2><span class="section-number">2.2. </span>A practical example<a class="headerlink" href="#a-practical-example" title="Link to this heading"></a></h2>
+<p>Take a look at our <a class="reference internal" href="../20_tutorials/mtp_controlengine/mtp_example_demo/index.html#tutorial-control-engines"><span class="std std-ref">Control Engine Tutorial</span></a> for a practical example on what an
+MTP PEA runtime application might look like.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="building_and_using_cena/static_linking.html" class="btn btn-neutral float-left" title="1.2. Creating statically linked binaries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../20_tutorials/index.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Semodia GmbH 2024. All Rights Reserved..</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
