@@ -3,8 +3,16 @@ Unless otherwise noted, the following copyright applies
 (c) Copyright 2024 Semodia GmbH. All Rights Reserved.
 
 ---
-This is an overview of included projects and dependencies to 3rd party code.  Please see [README_OSS.md](README_OSS.md) 
-for full license texts as per Semodias [Semodias Terms and Conditions](https://semodia.com/download/allgemeine-vertrags-und-lizenzbedingungen-semodia-gmbh-04-2020/).
+
+> [!IMPORTANT]
+> ### This software is subject to Semodia's Terms and Conditions.
+>
+> * German Version: [Link](./2024_04_Semodia-GmbH-AGB.pdf)
+> * English Version: [Link](./2024_04_Semodia-GmbH-AGB-en.pdf)
+
+---
+
+This is an overview of included projects and dependencies to 3rd party code.  Please see [README_OSS.md](README_OSS.md).
 
 * [CMake CodeCoverage](https://github.com/bilke/cmake-modules/blob/master/CodeCoverage.cmake) 
 (c) Copyright (c) 2012 - 2017, Lars Bilke 
