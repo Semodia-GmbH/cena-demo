@@ -1654,5 +1654,5 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
  *
  *
  *
- * .. _examplePEA.uap: https://github.com/Semodia-GmbH/github-test/blob/main/README.md
+ * .. _examplePEA.uap: https://github.com/Semodia-GmbH/cena-demo/blob/main/README.md
  */
