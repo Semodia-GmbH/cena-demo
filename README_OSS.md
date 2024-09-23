@@ -1,7 +1,7 @@
 # THIRD PARTY SOFTWARE NOTICES AND INFORMATION
 
 This file provides the full license information on incorporated material from third parties as per
-[Semodias Terms and Conditions](https://semodia.com/download/allgemeine-vertrags-und-lizenzbedingungen-semodia-gmbh-04-2020/).
+[Semodias Terms and Conditions](https://semodia.com/vertrags-und-lizenzbedingungen/).
 
 ## CMake CodeCoverage
 
