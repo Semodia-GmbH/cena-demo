@@ -741,6 +741,24 @@ public:
         this->procedureModeFillTank->getApply()->getApplyOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_ApplyOp", mtpStaticContentNamespaceName);
         this->procedureModeFillTank->getApply()->getApplyExt()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_ApplyExt", mtpStaticContentNamespaceName);
         this->procedureModeFillTank->getApply()->getApplyInt()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_ApplyIn", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateOpOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateOpOp", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateAutOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateAutOp", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateOffOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateOffOp", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateOpAut()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateOpAut", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateAutAut()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateAutAut", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateOffAut()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateOffAut", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateOpAct()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateOpAct", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateAutAct()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateAutAct", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceOperationMode()->getStateOffAct()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateOffAct", mtpStaticContentNamespaceName);
+            this->procedureModeFillTank->getServiceOperationMode()->getStateChannel()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_StateChannel", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getSync()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_Sync", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcChannel()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcChannel", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcIntOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcIntOp", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcExtOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcExtOp", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcIntAut()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcIntAut", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcExtAut()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcExtAut", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcIntOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcIntAct", mtpStaticContentNamespaceName);
+        this->procedureModeFillTank->getServiceSourceMode()->getSrcExtOp()->setFixedOpcUaNodeId("s=ProcedureModeFillTank_SrcExtAct", mtpStaticContentNamespaceName);
 
         /*
          * Next, we need to create and configure our service in the mtp, populate each service and attach our parameters.
